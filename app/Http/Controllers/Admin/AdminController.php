@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Admin;
+use Carbon\Carbon;
 
 class AdminController extends Controller
 {
@@ -70,6 +71,46 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
+    public function updateDetail(Request $request)
+    {
+        $admin = Admin::where('id', Auth::guard('admin')->user()->id)->first();
+
+        if($request->isMethod('post')) {
+            $request->validate([
+                'name' => 'required',
+                'mobile' => 'required|numeric',
+                'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+
+            $data = $request->all();
+
+            if($request->hasFile('image')) {
+                $image = $request->file('image');
+                if($image->isValid()) {
+                    //upload image and set image name
+                    $date = Carbon::now()->format('Y-m-d-H:m:s');
+                    $imageName = $date.".".$image->extension();
+                    $path = '/images/admin_images/admin_photos';
+                    $image->move(public_path($path), $imageName);
+                }
+            }else if(!empty($data['current_admin_image'])) {
+                $imageName = $data['current_admin_image'];
+            } else {
+                $imageName = "";
+            }
+
+            $admin->update([
+                'name' => $request->name,
+                'mobile' => $request->mobile,
+                'image' => $imageName
+            ]);
+            session::flash('success_message', 'Admin detail updated successful.');
+        }
+
+        return view('admin.update_detail', [
+            'admin' => $admin
+        ]);
+    }
     public function logout()
     {
         Auth::guard('admin')->logout();
