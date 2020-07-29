@@ -1,4 +1,5 @@
 <?php
+use Carbon\Traits\Rounding;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,11 +21,12 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::prefix('admin')->namespace('Admin')->group(function() {
+    // Admin Routes
     Route::match(['get','post'],'/', 'AdminController@login');
-
     Route::group(['middleware' => 'admin'], function() {
         Route::get('dashboard', 'AdminController@dashboard');
         Route::get('settings', 'AdminController@setting');
         Route::get('logout', 'AdminController@logout');
+        Route::post('check-current-password', 'AdminController@checkCurrentPassword');
     });
 });
