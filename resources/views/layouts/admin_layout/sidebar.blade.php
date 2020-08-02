@@ -55,6 +55,29 @@
               </li>
             </ul>
           </li>
+          <li class="nav-item has-treeview {{request()->is(['admin/sections','admin/categories']) ? 'menu-open' : ''}}">
+            <a href="#" class="nav-link {{request()->is(['admin/sections','admin/categories']) ? 'active' : ''}}">
+            <i class="nav-icon fas fa-th"></i>
+              <p>
+                Catalogues
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{url('admin/sections')}}" class="nav-link {{request()->is('admin/sections') ? 'active' : ''}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Sections</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{url('admin/categories')}}" class="nav-link {{request()->is('admin/categories') ? 'active' : ''}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Categories</p>
+                </a>
+              </li>
+            </ul>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

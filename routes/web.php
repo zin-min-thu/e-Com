@@ -21,14 +21,21 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::prefix('admin')->namespace('Admin')->group(function() {
-    // Admin Routes
     Route::match(['get','post'],'/', 'AdminController@login');
     Route::group(['middleware' => 'admin'], function() {
+        // Admin routes
         Route::get('dashboard', 'AdminController@dashboard');
         Route::get('settings', 'AdminController@setting');
         Route::get('logout', 'AdminController@logout');
         Route::post('check-current-password', 'AdminController@checkCurrentPassword');
         Route::post('update-current-password', 'AdminController@updateCurrentPassword');
         Route::match(['get','post'],'update-detail', 'AdminController@updateDetail');
+
+        //Section routes
+        Route::resource('sections', 'SectionController');
+        Route::post('update-section-status', 'SectionController@updateSectionStatus');
+
+        //Cagegory routes
+        
     });
 });
