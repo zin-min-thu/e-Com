@@ -55,8 +55,8 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item has-treeview {{request()->is(['admin/sections','admin/categories']) ? 'menu-open' : ''}}">
-            <a href="#" class="nav-link {{request()->is(['admin/sections','admin/categories']) ? 'active' : ''}}">
+          <li class="nav-item has-treeview {{request()->is(['admin/sections','admin/categories','admin/categories/*']) ? 'menu-open' : ''}}">
+            <a href="#" class="nav-link {{request()->is(['admin/sections','admin/categories','admin/categories/*']) ? 'active' : ''}}">
             <i class="nav-icon fas fa-th"></i>
               <p>
                 Catalogues
@@ -71,7 +71,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{url('admin/categories')}}" class="nav-link {{request()->is('admin/categories') ? 'active' : ''}}">
+                <a href="{{url('admin/categories')}}" class="nav-link {{request()->is(['admin/categories','admin/categories/*']) ? 'active' : ''}}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Categories</p>
                 </a>

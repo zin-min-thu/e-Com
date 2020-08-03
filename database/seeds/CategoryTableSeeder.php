@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Category;
-
+use Carbon\Carbon;
 class CategoryTableSeeder extends Seeder
 {
     /**
@@ -20,7 +20,9 @@ class CategoryTableSeeder extends Seeder
                 'discount' => 0,
                 'description' => '',
                 'url' => 't-shirts',
-                'status' => 1
+                'status' => 1,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ],
             [
                 'parent_id' => 1,
@@ -29,7 +31,9 @@ class CategoryTableSeeder extends Seeder
                 'discount' => 0,
                 'description' => '',
                 'url' => 'casual-t-shirts',
-                'status' => 1
+                'status' => 1,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ]
         ];
         

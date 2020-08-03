@@ -36,6 +36,7 @@ Route::prefix('admin')->namespace('Admin')->group(function() {
         Route::post('update-section-status', 'SectionController@updateSectionStatus');
 
         //Cagegory routes
-        
+        Route::resource('categories', 'CategoryController');
+        Route::post('update-category-status', 'CategoryController@updateCategoryStatus');
     });
 });

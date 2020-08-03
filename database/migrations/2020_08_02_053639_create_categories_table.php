@@ -19,13 +19,13 @@ class CreateCategoriesTable extends Migration
             $table->integer('section_id');
             $table->string('name');
             $table->string('image')->nullable();
-            $table->float('discount');
-            $table->text('description');
+            $table->float('discount')->nullable();
+            $table->text('description')->nullable();
             $table->string('url');
             $table->string('meta_title')->nullable();
             $table->string('meta_description')->nullable();
             $table->string('meta_keywords')->nullable();
-            $table->tinyInteger('status');
+            $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });
     }
