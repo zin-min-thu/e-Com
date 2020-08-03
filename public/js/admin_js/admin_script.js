@@ -38,4 +38,19 @@ $(document).ready(function() {
             }
         })
     });
+
+    //Append Category level
+    $("#section-id").change(function() {
+        var section_id = $(this).val();
+        $.ajax({
+            type:'post',
+            url:'/admin/append-category-level',
+            data:{section_id:section_id},
+            success:function(resp) {
+                $("#appendCagegoryLevel").html(resp);
+            }, error:function() {
+                alert("Error");
+            }
+        })
+    });
 });

@@ -38,5 +38,6 @@ Route::prefix('admin')->namespace('Admin')->group(function() {
         //Cagegory routes
         Route::resource('categories', 'CategoryController');
         Route::post('update-category-status', 'CategoryController@updateCategoryStatus');
+        Route::post('append-category-level', 'CategoryController@appendCategoryLevel');
     });
 });

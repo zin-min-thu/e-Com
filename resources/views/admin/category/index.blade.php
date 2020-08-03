@@ -48,6 +48,8 @@
                               <tr>
                                   <th>ID</th>
                                   <th>Name</th>
+                                  <th>Parent Category</th>
+                                  <th>Section</th>
                                   <th>URL</th>
                                   <th>Status</th>
                               </tr>
@@ -57,6 +59,14 @@
                                   <tr>
                                       <td>{{$category->getKey()}}</td>
                                       <td>{{$category->name}}</td>
+                                      <td>
+                                        @if(isset($category->parent_category->name))
+                                        {{$category->parent_category->name}}
+                                        @else
+                                        Root
+                                        @endif
+                                      </td>
+                                      <td>{{$category->section->name}}</td>
                                       <td>{{$category->url}}</td>
                                       <td>
                                           @include('admin.category._update_status')

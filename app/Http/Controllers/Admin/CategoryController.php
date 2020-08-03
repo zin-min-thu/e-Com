@@ -13,7 +13,8 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::with(['section','parent_category'])->get();
+
         return view('admin.category.index',compact('categories'));
     }
 
@@ -36,7 +37,6 @@ class CategoryController extends Controller
 
         if($request->hasFile('image')) {
             $image = $data['image'];
-            // $getExtension = $image->extension();
             if($image->isValid()) {
                 $date = Carbon::now()->format('Y-m-d-H:i:s');
                 $imageName = $date.$image->extension();
@@ -46,7 +46,7 @@ class CategoryController extends Controller
         }else {
             $imageName = "";
         }
-        // dd('out');
+
         Category::create([
             'name' => $data['name'],
             'parent_id' => $data['parent_id'],
@@ -75,5 +75,14 @@ class CategoryController extends Controller
         Category::where('id', $data['category_id'])->update(['status' => $status]);
         session::flash('success_message', 'Update Category status');
         return redirect()->back();
+    }
+
+    public function appendCategoryLevel(Request $request)
+    {
+        if($request->ajax()) {
+            $data = $request->all();
+            $categories = Category::with('subcategories')->where(['section_id' => $data['section_id'], 'parent_id' => 0, 'status' => 1])->get();
+            return view('admin.category._append_level', compact('categories'));
+        }
     }
 }
