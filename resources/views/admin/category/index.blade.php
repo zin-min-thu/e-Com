@@ -52,6 +52,7 @@
                                   <th>Section</th>
                                   <th>URL</th>
                                   <th>Status</th>
+                                  <th>Action</th>
                               </tr>
                               </thead>
                               <tbody>
@@ -70,6 +71,9 @@
                                       <td>{{$category->url}}</td>
                                       <td>
                                           @include('admin.category._update_status')
+                                      </td>
+                                      <td>
+                                        <a href="{{url('admin/categories/'.$category->id).'/edit'}}">Edit</a>
                                       </td>
                                   </tr>
                                   @endforeach

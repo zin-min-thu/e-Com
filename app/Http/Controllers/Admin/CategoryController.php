@@ -64,6 +64,58 @@ class CategoryController extends Controller
         return redirect('admin/categories');
     }
 
+    public function edit(Category $category)
+    {
+
+        $sections = Section::all();
+
+        $getCategories = Category::with('subcategories')
+                        ->where(['parent_id' => 0,'section_id' =>$category->section_id,'status' => 1])
+                        ->get();
+
+        return view('admin.category.edit', compact('getCategories','sections','category'));
+
+    }
+
+    public function update(Request $request, Category $category)
+    {
+        $request->validate([
+            'name' => 'required',
+            'section_id' => 'required',
+        ]);
+
+        $data = $request->all();
+        if($request->hasFile('image')) {
+            $image = $request->file('image');
+            if($image->isValid()) {
+                $date = Carbon::now()->format('Y-d-m-H:i:s');
+                $imageName = $date.".".$image->extension();
+                $path = "/images/admin_images/category_images";
+                $image->move(public_path($path), $imageName);
+            }
+        } else if(isset($category->image)) {
+            $imageName = $category->image;
+        } else {
+            $imageName = "";
+        }
+
+        $category->update([
+            'name' => $data['name'],
+            'section_id' => $data['section_id'],
+            'parent_id' => $data['parent_id'],
+            'image' => $imageName,
+            'discount' => $data['discount'],
+            'description' => $data['description'],
+            'url' => $data['url'],
+            'meta_title' => $data['meta_title'],
+            'meta_description' => $data['meta_description'],
+            'meta_keywords' => $data['meta_keywords'],
+        ]);
+
+        session::flash('success_message', 'Updated category successful.');
+        return redirect('admin/categories');
+    }
+
     public function updateCategoryStatus(Request $request)
     {
         $data = $request->all();
@@ -81,8 +133,11 @@ class CategoryController extends Controller
     {
         if($request->ajax()) {
             $data = $request->all();
-            $categories = Category::with('subcategories')->where(['section_id' => $data['section_id'], 'parent_id' => 0, 'status' => 1])->get();
-            return view('admin.category._append_level', compact('categories'));
+            $getCategories = Category::with('subcategories')
+                            ->where(['section_id' => $data['section_id'], 'parent_id' => 0, 'status' => 1])
+                            ->get();
+
+            return view('admin.category._append_level', compact('getCategories'));
         }
     }
 }
