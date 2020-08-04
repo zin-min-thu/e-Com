@@ -66,7 +66,6 @@ class CategoryController extends Controller
 
     public function edit(Category $category)
     {
-
         $sections = Section::all();
 
         $getCategories = Category::with('subcategories')
@@ -75,6 +74,28 @@ class CategoryController extends Controller
 
         return view('admin.category.edit', compact('getCategories','sections','category'));
 
+    }
+
+    public function deleteCategory(Category $category)
+    {
+        $category->delete();
+
+        session::flash('success_message', 'Category deleted has been successful.');
+        return redirect()->back();
+    }
+
+    public function deleteCategoryImage(Category $category)
+    {
+        $file_path = "images/admin_images/category_images/";
+
+        if(file_exists($file_path.$category->image)) {
+            unlink($file_path.$category->image);
+        }
+
+        $category->update(['image' => '']);
+
+        session::flash('success_message', 'Deleted category image successful.');
+        return redirect()->back();
     }
 
     public function update(Request $request, Category $category)

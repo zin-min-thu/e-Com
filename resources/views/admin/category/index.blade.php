@@ -74,6 +74,12 @@
                                       </td>
                                       <td>
                                         <a href="{{url('admin/categories/'.$category->id).'/edit'}}">Edit</a>
+                                        {{--<form action="{{url('admin/categories/'.$category->id)}}" class="form-inline">
+                                          @method('delete')
+                                          @csrf
+                                          <a href="#" onclick="$(this).closest('form').submit();" class="text-red" style="float: left;">Delete</a>
+                                        </form>--}}
+                                        <a href="{{url('admin/delete-category/'.$category->id)}}" class="text-red">&nbsp;&nbsp;Delete</a>
                                       </td>
                                   </tr>
                                   @endforeach
