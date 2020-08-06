@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Http\Controllers\Admin\ProductController;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,5 +15,6 @@ class DatabaseSeeder extends Seeder
         // $this->call(UsersTableSeeder::class);
         $this->call(AdminsTableSeeder::class);
         $this->call(SectionsTableSeeder::class);
+        $this->call(ProductsTableSeeder::class);
     }
 }

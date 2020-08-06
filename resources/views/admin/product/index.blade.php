@@ -43,38 +43,30 @@
                         </div>
                         <!-- /.card-header -->
                       <div class="card-body">
-                          <table id="categoryDataTable" class="table table-bordered table-striped">
+                          <table id="productDataTable" class="table table-bordered table-striped">
                               <thead>
                               <tr>
                                   <th>ID</th>
                                   <th>Name</th>
-                                  <th>Parent Category</th>
-                                  <th>Section</th>
-                                  <th>URL</th>
+                                  <th>Code</th>
+                                  <th>Color</th>
                                   <th>Status</th>
                                   <th>Action</th>
                               </tr>
                               </thead>
                               <tbody>
-                                  @foreach($categories as $category)
+                                  @foreach($products as $product)
                                   <tr>
-                                      <td>{{$category->getKey()}}</td>
-                                      <td>{{$category->name}}</td>
+                                      <td>{{$product->getKey()}}</td>
+                                      <td>{{$product->name}}</td>
+                                      <td>{{$product->code}}</td>
+                                      <td>{{$product->color}}</td>
                                       <td>
-                                        @if(isset($category->parent_category->name))
-                                        {{$category->parent_category->name}}
-                                        @else
-                                        Root
-                                        @endif
-                                      </td>
-                                      <td>{{$category->section->name}}</td>
-                                      <td>{{$category->url}}</td>
-                                      <td>
-                                          @include('admin.category._update_status')
+                                          @include('admin.product._update_status')
                                       </td>
                                       <td>
-                                        <a href="{{url('admin/categories/'.$category->id).'/edit'}}">Edit</a>
-                                        <a class="confirmDelete text-red" record="category" recordId="{{$category->id}}" href="javascript:void(0)" class="text-red">&nbsp;&nbsp;Delete</a>
+                                        <a href="{{url('admin/products/'.$product->id).'/edit'}}">Edit</a>
+                                        <a class="confirmDelete text-red" record="product" recordId="{{$product->id}}" href="javascript:void(0)" class="text-red">&nbsp;&nbsp;Delete</a>
                                       </td>
                                   </tr>
                                   @endforeach
@@ -98,7 +90,7 @@
 @section('footer-script')
 <script>
   $(function () {
-    $("#categoryDataTable").DataTable({
+    $("#productDataTable").DataTable({
       "responsive": true,
       "autoWidth": false,
     });

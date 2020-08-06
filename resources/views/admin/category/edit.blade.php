@@ -98,7 +98,7 @@
                                 <a target="_blank" href="{{url('images/admin_images/category_images/'.$category->image)}}" title="Click to view image">
                                     <img src="{{url('images/admin_images/category_images/'.$category->image)}}" style="width: 100px; height:80px;">
                                 </a>
-                                <a href="{{url('admin/delete-category-image/'.$category->id)}}" class="text-red">Delete Image</a>
+                                <a href="javascript:void(0)" record="category-image" recordId="{{$category->id}}" class="confirmDelete text-red">Delete Image</a>
                                 @else
                                 <span class="text-red">You need to upload category image.</span>
                                 @endif
