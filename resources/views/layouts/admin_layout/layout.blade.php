@@ -30,6 +30,8 @@
   <link rel="stylesheet" href="{{asset ('plugins/daterangepicker/daterangepicker.css')}}">
   <!-- summernote -->
   <link rel="stylesheet" href="{{asset ('plugins/summernote/summernote-bs4.css')}}">
+  <!-- Sweet alert2 -->
+  <link rel="stylesheet" href="{{asset ('plugins/sweetalert2/sweetalert2.min.css')}}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -95,6 +97,8 @@
 <script src="{{ asset ('js/admin_js/demo.js')}}"></script>
 <!-- Custom Admin Js -->
 <script src="{{ asset ('js/admin_js/admin_script.js')}}"></script>
+<!-- Sweet alert2 -->
+<script src="{{ asset ('plugins/sweetalert2/sweetalert2.min.js')}}"></script>
 
 @yield('footer-script')
 
