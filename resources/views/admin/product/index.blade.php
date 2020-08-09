@@ -38,7 +38,7 @@
                         <div class="card-header">
                           <h3 class="card-title">Category</h3>
                           <div class="text-right">
-                            <a href="{{url('admin/categories/create')}}" class="btn btn-primary"><i class="fa fa-plus"></i> AddCategory</a>
+                            <a href="{{url('admin/products/create')}}" class="btn btn-primary"><i class="fa fa-plus"></i> AddCategory</a>
                           </div>
                         </div>
                         <!-- /.card-header -->
@@ -50,6 +50,8 @@
                                   <th>Name</th>
                                   <th>Code</th>
                                   <th>Color</th>
+                                  <th>Category</th>
+                                  <th>Section</th>
                                   <th>Status</th>
                                   <th>Action</th>
                               </tr>
@@ -61,6 +63,8 @@
                                       <td>{{$product->name}}</td>
                                       <td>{{$product->code}}</td>
                                       <td>{{$product->color}}</td>
+                                      <td>{{$product->category->name}}</td>
+                                      <td>{{$product->section->name}}</td>
                                       <td>
                                           @include('admin.product._update_status')
                                       </td>
