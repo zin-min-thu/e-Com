@@ -8,6 +8,8 @@ use App\Product;
 use Session;
 use App\Section;
 use App\Category;
+use Carbon\Carbon;
+use Image;
 
 class ProductController extends Controller
 {
@@ -46,10 +48,41 @@ class ProductController extends Controller
             'name' => 'required',
             'code' => 'required',
             'price' => 'required',
-            'color' => 'required'
+            'color' => 'required',
         ]);
 
         $data = $request->all();
+
+        if($request->hasFile('image')) {
+            $image = $request->file('image');
+            if($image->isValid()) {
+                $date = Carbon::now()->format('Y-m-d-H-i-s');
+                $imageName = $date.".".$image->extension();
+                $large_image_path = "images/product_images/large/".$imageName;
+                $medium_image_path = "images/product_images/medium/".$imageName;
+                $small_image_path = "images/product_images/small/".$imageName;
+                //Upload large size image
+                Image::make($image)->save($large_image_path);
+                //Upload medium size image
+                Image::make($image)->resize(520,600)->save($medium_image_path);
+                //Upload small size image
+                Image::make($image)->resize(260,300)->save($small_image_path);
+            }
+        } else {
+            $imageName = "";
+        }
+
+        if($request->hasFile('video')) {
+            $video = $request->file('video');
+            if($video->isValid()) {
+                $date = Carbon::now()->format('Y-m-d-H-i-s');
+                $videoName = $date.'.'.$video->getClientOriginalExtension();
+                $video_path = "videos/product_videos/";
+                $video->move(public_path($video_path), $videoName);
+            }
+        } else {
+            $videoName = "";
+        }
 
         if(isset($data['is_featured'])) {
             $is_featured = "Yes";
@@ -68,6 +101,8 @@ class ProductController extends Controller
             'price' => $data['price'],
             'weight' => $data['weight'],
             'discount' => $data['discount'],
+            'image' => $imageName,
+            'video' => $videoName,
             'fabric' => $data['fabric'],
             'sleeve' => $data['sleeve'],
             'fit' => $data['fit'],
@@ -81,6 +116,7 @@ class ProductController extends Controller
             'is_featured' => $is_featured,
             'status' => 1
         ]);
+
         session::flash('success_message','Created New Product successful.');
         return redirect('admin/products');
     }

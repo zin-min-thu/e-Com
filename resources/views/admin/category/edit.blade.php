@@ -95,8 +95,8 @@
                                     </div>
                                 </div>
                                 @if(!empty($category->image))
-                                <a target="_blank" href="{{url('images/admin_images/category_images/'.$category->image)}}" title="Click to view image">
-                                    <img src="{{url('images/admin_images/category_images/'.$category->image)}}" style="width: 100px; height:80px;">
+                                <a target="_blank" href="{{url('images/category_images/'.$category->image)}}" title="Click to view image">
+                                    <img src="{{url('images/category_images/'.$category->image)}}" style="width: 100px; height:80px;">
                                 </a>
                                 <a href="javascript:void(0)" record="category-image" recordId="{{$category->id}}" class="confirmDelete text-red">Delete Image</a>
                                 @else

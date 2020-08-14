@@ -157,7 +157,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="exampleInputFile">Product Main image</label>
+                                    <label for="image">Product Main image</label>
                                     <div class="input-group">
                                         <div class="custom-file">
                                             <input type="file" class="custom-file-input" name="image" id="image">
@@ -173,11 +173,11 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="exampleInputFile">Product Video</label>
+                                    <label for="video">Product Video</label>
                                     <div class="input-group">
                                         <div class="custom-file">
                                             <input type="file" class="custom-file-input" name="video" id="video">
-                                            <label class="custom-file-label" for="image">Choose file</label>
+                                            <label class="custom-file-label" for="video">Choose file</label>
                                         </div>
                                         <div class="input-group-append">
                                             <span class="input-group-text" id="">Upload</span>

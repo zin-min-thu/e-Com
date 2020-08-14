@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Product;
+use Carbon\Carbon;
 
 class ProductsTableSeeder extends Seeder
 {
@@ -29,7 +30,9 @@ class ProductsTableSeeder extends Seeder
                 'fit' => '',
                 'occasion' => '',
                 'is_featured' => 'No',
-                'status' => 1
+                'status' => 1,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ],
             [
                 'category_id' => 4,
@@ -47,7 +50,9 @@ class ProductsTableSeeder extends Seeder
                 'fit' => '',
                 'occasion' => '',
                 'is_featured' => 'Yes',
-                'status' => 1
+                'status' => 1,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ]
         ];
 

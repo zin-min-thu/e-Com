@@ -40,7 +40,7 @@ class CategoryController extends Controller
             if($image->isValid()) {
                 $date = Carbon::now()->format('Y-m-d-H:i:s');
                 $imageName = $date.$image->extension();
-                $path = "/images/admin_images/category_images";
+                $path = "/images/category_images";
                 $image->move(public_path($path), $imageName);
             } 
         }else {
@@ -86,7 +86,7 @@ class CategoryController extends Controller
 
     public function deleteCategoryImage(Category $category)
     {
-        $file_path = "images/admin_images/category_images/";
+        $file_path = "images/category_images/";
 
         if(file_exists($file_path.$category->image)) {
             unlink($file_path.$category->image);
@@ -106,12 +106,13 @@ class CategoryController extends Controller
         ]);
 
         $data = $request->all();
+
         if($request->hasFile('image')) {
             $image = $request->file('image');
             if($image->isValid()) {
                 $date = Carbon::now()->format('Y-d-m-H:i:s');
                 $imageName = $date.".".$image->extension();
-                $path = "/images/admin_images/category_images";
+                $path = "/images/category_images";
                 $image->move(public_path($path), $imageName);
             }
         } else if(isset($category->image)) {
