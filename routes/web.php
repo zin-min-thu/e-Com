@@ -47,5 +47,6 @@ Route::prefix('admin')->namespace('Admin')->group(function() {
         Route::resource('products', 'ProductController', ['except' => ['destroy']]);
         Route::post('update-product-status', 'ProductController@updateProductStatus');
         Route::get('delete-product/{product}', 'ProductController@deleteProduct');
+        Route::get('delete-product-image/{product}', 'ProductController@deleteProductImage');
     });
 });

@@ -36,7 +36,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                          <h3 class="card-title">Category</h3>
+                          <h3 class="card-title">Products</h3>
                           <div class="text-right">
                             <a href="{{url('admin/products/create')}}" class="btn btn-primary"><i class="fa fa-plus"></i> AddCategory</a>
                           </div>
@@ -50,6 +50,7 @@
                                   <th>Name</th>
                                   <th>Code</th>
                                   <th>Color</th>
+                                  <th class="text-center">Image</th>
                                   <th>Category</th>
                                   <th>Section</th>
                                   <th>Status</th>
@@ -63,6 +64,13 @@
                                       <td>{{$product->name}}</td>
                                       <td>{{$product->code}}</td>
                                       <td>{{$product->color}}</td>
+                                      <td class="text-center">
+                                      @if(!empty($product->image) && file_exists('images/product_images/small/'.$product->image))
+                                      <img src="{{url('images/product_images/small/'.$product->image)}}" style="width: 80px; height: 60px;">
+                                      @else
+                                        <img src="{{url('images/product_images/small/no_image.png')}}" style="width: 80px; height: 60px;">
+                                      @endif
+                                      </td>
                                       <td>{{$product->category->name}}</td>
                                       <td>{{$product->section->name}}</td>
                                       <td>

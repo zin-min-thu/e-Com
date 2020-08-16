@@ -43,6 +43,91 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
+        $data = $request->all();
+        $product = null;
+        $productData = $this->recordProduct($data, $request, $product);
+
+        Product::create($productData);
+
+        session::flash('success_message','Created New Product successful.');
+        return redirect('admin/products');
+    }
+
+    public function edit(Product $product)
+    {
+        $data = [
+            'fabricArray' => ['Cotton','Polyester','Wool'],
+            'sleeveArray' => ['Full Sleeve', 'Half Sleeve', 'Short Sleeve', 'Sleeveless'],
+            'patternArray' => ['Checked', 'Plain','Printed', 'Self', 'Solid'],
+            'fitArray' => ['Regular', 'Slim'],
+            'occasionArray' => ['Casual','Formal']
+        ];
+
+        $categories = Section::with(['categories'])->get();
+
+        return view('admin.product.edit', compact('product', 'data','categories'));
+    }
+
+    public function update(Request $request, Product $product)
+    {
+        $data = $request->all();
+
+        $productData = $this->recordProduct($data, $request, $product);
+
+        $product->update($productData);
+
+        session::flash('success_message', 'Product Updated successful.');
+        return redirect('admin/products');
+    }
+
+    public function updateProductStatus(Request $request)
+    {
+        $data = $request->all();
+
+        if($data['status'] == 1) {
+            $status = 0;
+        } else {
+            $status = 1;
+        }
+
+        Product::where('id', $data['product_id'])->update(['status' => $status]);
+        session::flash('success_message', 'Product status has been updated.');
+        return redirect ('admin/products');
+    }
+
+    public function deleteProduct(Product $product)
+    {
+        $product->delete();
+        session::flash('success_message', 'Product has been deleted.');
+        return redirect('admin/products');
+    }
+
+    public function deleteProductImage(Product $product)
+    {
+        $large_file_path = "images/product_images/large/";
+        $medium_file_path = "images/product_images/medium/";
+        $small_file_path = "images/product_images/small/";
+
+        if(file_exists($large_file_path.$product->image)) {
+            unlink($large_file_path.$product->image);
+        }
+        else if(file_exists($medium_file_path.$product->image)) {
+            unlink($medium_file_path.$product->image);
+        }
+        else if(file_exists($small_file_path.$product->image)) {
+            unlink($small_file_path.$product->image);
+        }
+
+        $product->update([
+            'image' => null,
+        ]);
+
+        session::flash('success_message', 'Product image deleted successful.');
+        return redirect()->back();
+    }
+
+    public function recordProduct($data, $request, $product)
+    {
         $request->validate([
             'category_id' => 'required',
             'name' => 'required',
@@ -51,8 +136,7 @@ class ProductController extends Controller
             'color' => 'required',
         ]);
 
-        $data = $request->all();
-
+        // Setting upload image
         if($request->hasFile('image')) {
             $image = $request->file('image');
             if($image->isValid()) {
@@ -68,10 +152,14 @@ class ProductController extends Controller
                 //Upload small size image
                 Image::make($image)->resize(260,300)->save($small_image_path);
             }
-        } else {
+        }
+        else if (isset($product->image)) {
+            $imageName = $product->image;
+        }else {
             $imageName = "";
         }
 
+        // Setting upload video
         if($request->hasFile('video')) {
             $video = $request->file('video');
             if($video->isValid()) {
@@ -80,7 +168,11 @@ class ProductController extends Controller
                 $video_path = "videos/product_videos/";
                 $video->move(public_path($video_path), $videoName);
             }
-        } else {
+        }
+        else if (isset($product->video)) {
+            $videoName = $product->video;
+        }
+        else {
             $videoName = "";
         }
 
@@ -92,7 +184,7 @@ class ProductController extends Controller
 
         $category = Category::findOrFail($data['category_id']);
 
-        Product::create([
+        $productData = [
             'category_id' => $category->id,
             'section_id' => $category->section_id,
             'code' => $data['code'],
@@ -115,29 +207,8 @@ class ProductController extends Controller
             'wash_care' => $data['wash_care'],
             'is_featured' => $is_featured,
             'status' => 1
-        ]);
+        ];
 
-        session::flash('success_message','Created New Product successful.');
-        return redirect('admin/products');
-    }
-
-    public function updateProductStatus(Request $request)
-    {
-        $data = $request->all();
-        if($data['status'] == 1) {
-            $status = 0;
-        } else {
-            $status = 1;
-        }
-        Product::where('id', $data['product_id'])->update(['status' => $status]);
-        session::flash('success_message', 'Product status has been updated.');
-        return redirect ('admin/products');
-    }
-
-    public function deleteProduct(Product $product)
-    {
-        $product->delete();
-        session::flash('success_message', 'Product has been deleted.');
-        return redirect('admin/products');
+        return $productData;
     }
 }
