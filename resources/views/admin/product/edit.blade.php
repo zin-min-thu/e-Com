@@ -147,21 +147,8 @@
                                     >
                                 </div>    
                             </div>
-                        </div>    
+                        </div>
                         <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="discount">Product Discount(%)</label>
-                                    <input
-                                        type="text"
-                                        name="discount"
-                                        class="form-control"
-                                        id="discount"
-                                        value="{{old('discount') ? old('discount') : $product->discount}}"
-                                        placeholder="Enter category discount"
-                                    >
-                                </div>       
-                            </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="image">Product Main image</label>
@@ -186,8 +173,6 @@
                                     @endif
                                 </div>       
                             </div>
-                        </div>                    
-                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="video">Product Video</label>
@@ -200,6 +185,39 @@
                                             <span class="input-group-text" id="">Upload</span>
                                         </div>
                                     </div>
+                                    @if(!empty($product->video))
+                                        <div>
+                                            <video width="200" height="180" controls>
+                                                <source src="{{asset('videos/product_videos/'.$product->video)}}" type="video/mp4">
+                                                <source src="{{asset('videos/product_videos/'.$product->video)}}" type="video/ogg">
+                                                Your browser does not support the video tag.
+                                            </video>
+                                            <a href="{{url('videos/product_videos/'.$product->video)}}" download>Download</a>
+                                            &nbsp;&nbsp; | &nbsp;&nbsp;
+                                            <a href="javascript::void(0)" record="product-video" recordId="{{$product->id}}" class="confirmDelete text-red">
+                                                Delete Video
+                                            </a>
+                                        </div>
+                                    @else
+                                        <span class="text-red">
+                                            You need to upload video.
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="discount">Product Discount(%)</label>
+                                    <input
+                                        type="text"
+                                        name="discount"
+                                        class="form-control"
+                                        id="discount"
+                                        value="{{old('discount') ? old('discount') : $product->discount}}"
+                                        placeholder="Enter category discount"
+                                    >
                                 </div>
                             </div>
                             <div class="col-md-6">

@@ -110,11 +110,7 @@ class ProductController extends Controller
 
         if(file_exists($large_file_path.$product->image)) {
             unlink($large_file_path.$product->image);
-        }
-        else if(file_exists($medium_file_path.$product->image)) {
             unlink($medium_file_path.$product->image);
-        }
-        else if(file_exists($small_file_path.$product->image)) {
             unlink($small_file_path.$product->image);
         }
 
@@ -124,6 +120,22 @@ class ProductController extends Controller
 
         session::flash('success_message', 'Product image deleted successful.');
         return redirect()->back();
+    }
+
+    public function deleteProductVideo(Product $product)
+    {
+        $file_path = "videos/product_videos/";
+
+        if(file_exists($file_path.$product->video)) {
+            unlink($file_path.$product->video);
+        }
+
+        $product->update([
+            'video' => null
+        ]);
+
+        session::flash('success_message', 'Product video deleted successful.');
+        return redirect('admin/products');
     }
 
     public function recordProduct($data, $request, $product)
