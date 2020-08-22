@@ -10,6 +10,7 @@ use App\Section;
 use App\Category;
 use Carbon\Carbon;
 use Image;
+use App\ProductAttribute;
 
 class ProductController extends Controller
 {
@@ -222,5 +223,42 @@ class ProductController extends Controller
         ];
 
         return $productData;
+    }
+
+    public function addProductAttribute(Request $request, Product $product)
+    {
+        if($request->isMethod('post')) {
+
+            $data = $request->all();
+
+            foreach($data['sku'] as $key => $value) {
+
+                $countSku = ProductAttribute::where('sku', $value)->count();
+                if($countSku > 0) {
+                    session::flash('error_message', 'Product '.$value.' attrubute already exists.');
+                    return redirect()->back();
+                }
+
+                $countSize = ProductAttribute::where('size', $data['size'][$key])->count();
+                if($countSize > 0) {
+                    session::flash('error_message', 'Product '.$data['size'][$key]. ' attrubute already exists.');
+                    return redirect()->back();
+                }
+
+                ProductAttribute::create([
+                    'product_id' => $data['product_id'],
+                    'size' => $data['size'][$key],
+                    'price' => $data['price'][$key],
+                    'stock' => $data['stock'][$key],
+                    'sku' => $data['sku'][$key],
+                    'status' => 1,
+                ]);
+            }
+
+            session::flash('success_message', 'Product Attribute has been added.');
+            return redirect()->back();
+        }
+
+        return view('admin.product.add_product_attribute', compact('product'));
     }
 }

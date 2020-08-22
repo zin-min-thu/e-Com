@@ -77,8 +77,15 @@
                                           @include('admin.product._update_status')
                                       </td>
                                       <td>
-                                        <a href="{{url('admin/products/'.$product->id).'/edit'}}">Edit</a>
-                                        <a class="confirmDelete text-red" record="product" recordId="{{$product->id}}" href="javascript:void(0)" class="text-red">&nbsp;&nbsp;Delete</a>
+                                        <a title="Add product attributes" href="{{url('admin/products/'.$product->id.'/add-attribute')}}" class="btn btn-primary btn-sm">
+                                          <i class="fa fa-plus"></i>
+                                        </a>
+                                        <a title="Edit Product" href="{{url('admin/products/'.$product->id).'/edit'}}" class="btn btn-info btn-sm">
+                                        &nbsp;&nbsp;<i class="fa fa-edit"></i>
+                                        </a>
+                                        <a title="Delete Product" class="confirmDelete btn btn-danger btn-sm" record="product" recordId="{{$product->id}}" href="javascript:void(0)">
+                                        &nbsp;&nbsp;<i class="fa fa-trash"></i>
+                                        </a>
                                       </td>
                                   </tr>
                                   @endforeach

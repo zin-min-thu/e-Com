@@ -40,4 +40,9 @@ class Product extends Model
     {
         return $this->belongsTo('App\Section', 'section_id');
     }
+
+    public function productAttributes()
+    {
+        return $this->hasMany('App\ProductAttribute', 'product_id','id');
+    }
 }

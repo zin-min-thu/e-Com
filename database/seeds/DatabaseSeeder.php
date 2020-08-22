@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Http\Controllers\Admin\ProductController;
+use App\ProductAttribute;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,5 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call(AdminsTableSeeder::class);
         $this->call(SectionsTableSeeder::class);
         $this->call(ProductsTableSeeder::class);
+        $this->call(ProductAttribute::class);
     }
 }
