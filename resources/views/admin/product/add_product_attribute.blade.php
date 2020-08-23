@@ -84,21 +84,24 @@
                             <div>
                                 <input type="text" name="size[]" placeholder="Size" style="width: 120px;" required/>
                                 <input type="text" name="sku[]" placeholder="SKU" style="width: 120px;" required/>
-                                <input type="text" name="price[]" placeholder="Price" style="width: 120px;" required/>
-                                <input type="text" name="stock[]" placeholder="Stock" style="width: 120px;" required/>
+                                <input type="number" name="price[]" placeholder="Price" style="width: 120px;" required/>
+                                <input type="number" name="stock[]" placeholder="Stock" style="width: 120px;" required/>
                                 <a href="javascript:void(0);" class="add_button" title="Add field">Add</a>
                             </div>
                         </div>
                     </div>               
                     <!-- /.card-body -->
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary">Add Attribute</button>
                     </div>
                 </div>
             </form>
             <!-- /.card -->
             <div class="row">
                 <div class="col-12">
+                  <form action="{{url('admin/products/'.$product->id.'/update-attribute')}}" method="post">
+                    @csrf
+                    @method('patch')
                     <div class="card">
                         <div class="card-header">
                           <h3 class="card-title">Product Attributes</h3>
@@ -113,20 +116,21 @@
                                   <th>SKU</th>
                                   <th>Price</th>
                                   <th>Stock</th>
-                                  <th>Status</th>
                                   <th>Action</th>
                               </tr>
                               </thead>
                               <tbody>
                                   @foreach($product->attributes as $product)
+                                  <input style="display: none;" type="text" name="attribute_id[]" value="{{$product->id}}">
                                   <tr>
                                       <td>{{$product->getKey()}}</td>
                                       <td>{{$product->size}}</td>
                                       <td>{{$product->sku}}</td>
-                                      <td>{{$product->price}}</td>
-                                      <td>{{$product->stock}}</td>
                                       <td>
-                                          @include('admin.product._update_status')
+                                        <input type="number" name="price[]" id="price" value="{{$product->price}}">
+                                      </td>
+                                      <td>
+                                        <input type="number" name="stock[]" id="stock" value="{{$product->stock}}">
                                       </td>
                                       <td>
                                         <a title="Add product attributes" href="{{url('admin/products/'.$product->id.'/add-attribute')}}" class="btn btn-primary btn-sm">
@@ -143,11 +147,15 @@
                                   @endforeach
                               </tbody>
                           </table>
-                      </div>
+                        </div>
                         <!-- /.card-body -->
+                        <div class="card-footer">
+                          <button type="submit" class="btn btn-primary">Update Attribute</button>
+                        </div>
+                      </div>
+                      <!-- /.card -->
                     </div>
-                    <!-- /.card -->
-                </div>
+                  </form>
                 <!-- /.col -->
             </div>
             <!-- /.row -->
@@ -163,7 +171,7 @@ $(document).ready(function(){
     var maxField = 10; //Input fields increment limitation
     var addButton = $('.add_button'); //Add button selector
     var wrapper = $('.field_wrapper'); //Input field wrapper
-    var fieldHTML = '<div style="margin-top: 5px;"><input type="text" name="size[]" placeholder="Size" style="width: 120px;"/>&nbsp;<input type="text" name="sku[]" placeholder="SKU" style="width: 120px;"/>&nbsp;<input type="text" name="price[]" placeholder="Price" style="width: 120px;"/>&nbsp;<input type="text" name="stock[]" placeholder="Stock" style="width: 120px;"/>&nbsp;<a href="javascript:void(0);" class="remove_button" style="color: red;">Remove</a></div>'; //New input field html 
+    var fieldHTML = '<div style="margin-top: 5px;"><input type="text" name="size[]" placeholder="Size" style="width: 120px;"/>&nbsp;<input type="text" name="sku[]" placeholder="SKU" style="width: 120px;"/>&nbsp;<input type="number" name="price[]" placeholder="Price" style="width: 120px;"/>&nbsp;<input type="number" name="stock[]" placeholder="Stock" style="width: 120px;"/>&nbsp;<a href="javascript:void(0);" class="remove_button" style="color: red;">Remove</a></div>'; //New input field html
     var x = 1; //Initial field counter is 1
     
     //Once add button is clicked

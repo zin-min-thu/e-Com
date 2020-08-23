@@ -261,4 +261,19 @@ class ProductController extends Controller
 
         return view('admin.product.add_product_attribute', compact('product'));
     }
+
+    public function updateProductAttribute(Request $request)
+    {
+        $data = $request->all();
+
+        foreach($data['attribute_id'] as $key => $value) {
+            ProductAttribute::where('id', $value)->update([
+                'price' => $data['price'][$key],
+                'stock' => $data['stock'][$key]
+            ]);
+        }
+
+        session::flash('success_message', 'Product attribute has been updated successful.');
+        return redirect()->back();
+    }
 }
