@@ -233,15 +233,15 @@ class ProductController extends Controller
 
             foreach($data['sku'] as $key => $value) {
 
-                $countSku = ProductAttribute::where('sku', $value)->count();
+                $countSku = $product->attributes->where('sku', $value)->count();
                 if($countSku > 0) {
-                    session::flash('error_message', 'Product '.$value.' attrubute already exists.');
+                    session::flash('error_message', 'Product '.$value.' already exitsts, please choose another value.');
                     return redirect()->back();
                 }
 
-                $countSize = ProductAttribute::where('size', $data['size'][$key])->count();
+                $countSize = $product->attributes->where('size', $data['size'][$key])->count();
                 if($countSize > 0) {
-                    session::flash('error_message', 'Product '.$data['size'][$key]. ' attrubute already exists.');
+                    session::flash('error_message', 'Product '.$data['size'][$key]. ' already exitsts,please choose another value');
                     return redirect()->back();
                 }
 

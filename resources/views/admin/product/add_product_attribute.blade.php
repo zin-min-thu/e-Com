@@ -82,10 +82,10 @@
                         </div>
                         <div class="field_wrapper">
                             <div>
-                                <input type="text" name="size[]" placeholder="Size" style="width: 120px;"/>
-                                <input type="text" name="sku[]" placeholder="SKU" style="width: 120px;"/>
-                                <input type="text" name="price[]" placeholder="Price" style="width: 120px;"/>
-                                <input type="text" name="stock[]" placeholder="Stock" style="width: 120px;"/>
+                                <input type="text" name="size[]" placeholder="Size" style="width: 120px;" required/>
+                                <input type="text" name="sku[]" placeholder="SKU" style="width: 120px;" required/>
+                                <input type="text" name="price[]" placeholder="Price" style="width: 120px;" required/>
+                                <input type="text" name="stock[]" placeholder="Stock" style="width: 120px;" required/>
                                 <a href="javascript:void(0);" class="add_button" title="Add field">Add</a>
                             </div>
                         </div>
@@ -97,6 +97,60 @@
                 </div>
             </form>
             <!-- /.card -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                          <h3 class="card-title">Product Attributes</h3>
+                        </div>
+                        <!-- /.card-header -->
+                      <div class="card-body">
+                          <table id="productDataTable" class="table table-bordered table-striped">
+                              <thead>
+                              <tr>
+                                  <th>ID</th>
+                                  <th>Size</th>
+                                  <th>SKU</th>
+                                  <th>Price</th>
+                                  <th>Stock</th>
+                                  <th>Status</th>
+                                  <th>Action</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                                  @foreach($product->attributes as $product)
+                                  <tr>
+                                      <td>{{$product->getKey()}}</td>
+                                      <td>{{$product->size}}</td>
+                                      <td>{{$product->sku}}</td>
+                                      <td>{{$product->price}}</td>
+                                      <td>{{$product->stock}}</td>
+                                      <td>
+                                          @include('admin.product._update_status')
+                                      </td>
+                                      <td>
+                                        <a title="Add product attributes" href="{{url('admin/products/'.$product->id.'/add-attribute')}}" class="btn btn-primary btn-sm">
+                                          <i class="fa fa-plus"></i>
+                                        </a>
+                                        <a title="Edit Product" href="{{url('admin/products/'.$product->id).'/edit'}}" class="btn btn-info btn-sm">
+                                        &nbsp;&nbsp;<i class="fa fa-edit"></i>
+                                        </a>
+                                        <a title="Delete Product" class="confirmDelete btn btn-danger btn-sm" record="product" recordId="{{$product->id}}" href="javascript:void(0)">
+                                        &nbsp;&nbsp;<i class="fa fa-trash"></i>
+                                        </a>
+                                      </td>
+                                  </tr>
+                                  @endforeach
+                              </tbody>
+                          </table>
+                      </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
         </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
@@ -128,5 +182,13 @@ $(document).ready(function(){
         x--; //Decrement field counter
     });
 });
+</script>
+<script>
+  $(function () {
+    $("#productDataTable").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+    });
+  });
 </script>
 @endsection
