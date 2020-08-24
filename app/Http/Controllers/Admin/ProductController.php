@@ -276,4 +276,24 @@ class ProductController extends Controller
         session::flash('success_message', 'Product attribute has been updated successful.');
         return redirect()->back();
     }
+
+    public function deleteProductAttribute($id)
+    {
+        $prduct_attribute = ProductAttribute::findOrFail($id);
+        $prduct_attribute->delete();
+        session::flash('success_message', 'Product attribute has been deleted successful.');
+        return redirect()->back();
+    }
+
+    public function updateStatusAttribute(Request $request)
+    {
+        $data = $request->all();
+        if($data['status'] == "Active") {
+            $status = 0;
+        } else {
+            $status = 1;
+        }
+        ProductAttribute::where('id', $data['attribute_id'])->update(['status' => $status]);
+        return response()->json(['status' => $status, 'attribute_id' => $data['attribute_id']]);
+    }
 }

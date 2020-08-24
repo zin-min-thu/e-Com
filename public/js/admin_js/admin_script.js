@@ -72,4 +72,23 @@ $(document).ready(function() {
             }
           });
     });
+
+    $(".updateStatusAttribute").click(function() {
+        var status = $(this).text();
+        var attribute_id = $(this).attr('attribute_id');
+        $.ajax({
+            type:'post',
+            url:'/admin/update-status-attribute',
+            data:{status:status,attribute_id:attribute_id},
+            success:function(resp) {
+                if(resp['status'] == 0) {
+                    $("#attribute-"+attribute_id).html('<span style="color:red; font-weight:bold;" >Inactive</span>')
+                } else if(resp['status'] == 1) {
+                    $("#attribute-"+attribute_id).html('<span style="color:green; font-weight:bold;">Active</span>');
+                }
+            }, error:function() {
+                alert("Error");
+            }
+        })
+    })
 });
