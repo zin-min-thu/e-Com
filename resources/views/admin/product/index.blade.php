@@ -80,6 +80,9 @@
                                         <a title="Add product attributes" href="{{url('admin/products/'.$product->id.'/add-attribute')}}" class="btn btn-primary btn-sm">
                                           <i class="fa fa-plus"></i>
                                         </a>
+                                        <a title="Add product images" href="{{url('admin/products/'.$product->id.'/add-images')}}" class="btn btn-info btn-sm">
+                                          <i class="fa fa-plus-circle"></i>
+                                        </a>
                                         <a title="Edit Product" href="{{url('admin/products/'.$product->id).'/edit'}}" class="btn btn-info btn-sm">
                                         &nbsp;&nbsp;<i class="fa fa-edit"></i>
                                         </a>

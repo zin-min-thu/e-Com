@@ -55,5 +55,8 @@ Route::prefix('admin')->namespace('Admin')->group(function() {
         Route::patch('products/{product}/update-attribute', 'ProductController@updateProductAttribute');
         Route::get('delete-product-attribute/{id}', 'ProductController@deleteProductAttribute');
         Route::post('update-status-attribute', 'ProductController@updateStatusAttribute');
+
+        //Product Images routes
+        Route::match(['get','post'], '/products/{product}/add-images', 'ProductImageController@addImage');
     });
 });
