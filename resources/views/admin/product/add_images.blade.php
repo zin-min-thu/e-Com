@@ -121,14 +121,14 @@
                                         <img src="{{url('images/product_images/medium/'.$image->image)}}" alt="Item Not Found" width="120" height="100">
                                       </td>
                                       <td>
-                                        <a title="Add product attributes" href="javascript:void(0)" id="attribute-{{$image->id}}" attribute_id = "{{$image->id}}" class="updateStatusAttribute">
-                                          @if($product->status == 1)
+                                        <a title="Update product image status" href="javascript:void(0)" id="product-image-{{$image->id}}" productImageID = "{{$image->id}}" class="updateStatusProductImage">
+                                          @if($image->status == 1)
                                             <span style="color:green;font-weight:bold;">Active &nbsp;&nbsp;&nbsp;</span>
                                           @else
                                             <span style="color:red;font-weight:bold;">Inactive</span>
                                           @endif
                                         </a>
-                                        <a title="Delete product attribute" class="confirmDelete text-red" record="product-attribute" recordId="{{$image->id}}" href="javascript:void(0)">
+                                        <a title="Delete product images" class="confirmDelete text-red" record="product-images" recordId="{{$image->id}}" href="javascript:void(0)">
                                           &nbsp;&nbsp;<i class="fa fa-trash"></i>
                                         </a>
                                       </td>

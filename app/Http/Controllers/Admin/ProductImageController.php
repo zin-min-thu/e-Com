@@ -49,4 +49,37 @@ class ProductImageController extends Controller
         }
         return view('admin.product.add_images', compact('product'));
     }
+
+    public function updateStatus(Request $request)
+    {
+        $data = $request->all();
+        if($data['status'] == "Active") {
+            $status = 0;
+        } else {
+            $status = 1;
+        }
+
+        ProductImage::where('id', $data['image_id'])->update(['status' => $status]);
+        return response()->json(['status' => $status, 'image_id' => $data['image_id']]);
+    }
+
+    public function deleteImages($id)
+    {
+        $product_image = Productimage::findOrFail($id);
+
+        $large_file_path = "images/product_images/large/";
+        $medium_file_path = "images/product_images/medium/";
+        $small_file_path = "images/product_images/small/";
+
+        if(file_exists($large_file_path.$product_image->image)) {
+            unlink($large_file_path.$product_image->image);
+            unlink($medium_file_path.$product_image->image);
+            unlink($small_file_path.$product_image->image);
+        }
+
+        $product_image->delete();
+
+        session::flash('success_message', 'Product image deleted successful.');
+        return redirect()->back();
+    }
 }
