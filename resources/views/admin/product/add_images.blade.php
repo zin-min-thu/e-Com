@@ -123,7 +123,7 @@
                                       <td>
                                         <a title="Update product image status" href="javascript:void(0)" id="product-image-{{$image->id}}" productImageID = "{{$image->id}}" class="updateStatusProductImage">
                                           @if($image->status == 1)
-                                            <span style="color:green;font-weight:bold;">Active &nbsp;&nbsp;&nbsp;</span>
+                                            <span style="color:green;font-weight:bold;">Active</span>
                                           @else
                                             <span style="color:red;font-weight:bold;">Inactive</span>
                                           @endif

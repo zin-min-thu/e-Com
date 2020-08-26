@@ -135,7 +135,7 @@
                                       <td>
                                         <a title="Add product attributes" href="javascript:void(0)" id="attribute-{{$product->id}}" attribute_id = "{{$product->id}}" class="updateStatusAttribute">
                                           @if($product->status == 1)
-                                            <span style="color:green;font-weight:bold;">Active &nbsp;&nbsp;&nbsp;</span>
+                                            <span style="color:green;font-weight:bold;">Active</span>
                                           @else
                                             <span style="color:red;font-weight:bold;">Inactive</span>
                                           @endif
