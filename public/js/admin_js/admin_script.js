@@ -109,6 +109,25 @@ $(document).ready(function() {
                 alert("Error");
             }
         })
-    })
+    });
+
+    $(".updateStatusBrand").click(function() {
+        var status = $(this).children("i").attr('status');
+        var brand_id = $(this).attr('brand_id');
+        $.ajax({
+            type:'post',
+            url:'/admin/update-status-brand',
+            data:{status:status,brand_id:brand_id},
+            success:function(resp) {
+                if(resp['status'] == 0) {
+                    $("#brand-"+brand_id).html('<i class="fa fa-toggle-off fa-lg text-red" status="Inactive"></i>')
+                } else if(resp['status'] == 1) {
+                    $("#brand-"+brand_id).html('<i class="fa fa-toggle-on fa-lg" status="Active"></i>');
+                }
+            }, error:function() {
+                alert("Error");
+            }
+        })
+    });
 
 });

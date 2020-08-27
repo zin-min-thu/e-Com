@@ -35,6 +35,11 @@ Route::prefix('admin')->namespace('Admin')->group(function() {
         //Section routes
         Route::resource('sections', 'SectionController', ['only' => ['index']]);
         Route::post('update-section-status', 'SectionController@updateSectionStatus');
+        
+        //Brands routes
+        Route::resource('brands', 'BrandController', ['except' => ['destroy']]);
+        Route::get('delete-brand/{brand}', 'BrandController@deleteBrand');
+        Route::post('update-status-brand', 'BrandController@updateStatusBrand');
 
         //Cagegory routes
         Route::resource('categories', 'CategoryController', ['except' => ['destroy']]);

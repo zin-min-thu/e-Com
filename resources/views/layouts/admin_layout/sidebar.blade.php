@@ -56,9 +56,9 @@
             </ul>
           </li>
           <li
-            class="nav-item has-treeview {{request()->is(['admin/sections','admin/categories','admin/categories/*','admin/products','admin/products/*']) ? 'menu-open' : ''}}"
+            class="nav-item has-treeview {{request()->is(['admin/sections', 'admin/brands','admin/brands/*', 'admin/categories','admin/categories/*','admin/products','admin/products/*']) ? 'menu-open' : ''}}"
           >
-            <a href="#" class="nav-link {{request()->is(['admin/sections','admin/categories','admin/categories/*','admin/products','admin/products/*']) ? 'active' : ''}}">
+            <a href="#" class="nav-link {{request()->is(['admin/sections', 'admin/brands','admin/brands/*','admin/categories','admin/categories/*','admin/products','admin/products/*']) ? 'active' : ''}}">
             <i class="nav-icon fas fa-th"></i>
               <p>
                 Catalogues
@@ -70,6 +70,12 @@
                 <a href="{{url('admin/sections')}}" class="nav-link {{request()->is('admin/sections') ? 'active' : ''}}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Sections</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{url('admin/brands')}}" class="nav-link {{request()->is(['admin/brands', 'admin/brands/*']) ? 'active' : ''}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Brands</p>
                 </a>
               </li>
               <li class="nav-item">
