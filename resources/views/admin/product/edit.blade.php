@@ -94,6 +94,21 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Select Brand</label>
+                                    <select name="brand_id" id="select-brand" class="form-control select-brand" style="width: 100%;">
+                                    <option selected="selected" disabled>select</option>
+                                    @foreach($brands as $brand)
+                                        <option value="{{$brand->id}}" {{$product->brand_id == $brand->id ? 'selected' : ''}} {{old('brand_id') == $brand->id ? 'selected' : ''}}>
+                                            {{$brand->name}}
+                                        </option>
+                                    @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
                             <div class="form-group">
                                     <label for="name">Product Name</label>
                                     <input
@@ -377,6 +392,9 @@
 <script>
   $(function() {
       $('.select-category').select2()
+  })
+  $(function() {
+      $('.select-brand').select2()
   })
   $(function() {
       $('.select-fabric').select2()

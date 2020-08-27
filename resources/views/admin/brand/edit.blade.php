@@ -46,7 +46,7 @@
                 @method('patch')
                 <div class="card card-default">
                     <div class="card-header">
-                    <h3 class="card-title">Edit Brand</h3>
+                      <h3 class="card-title">Edit Brand</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">

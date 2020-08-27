@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Product;
 use Session;
 use App\Section;
+use App\Brand;
 use App\Category;
 use Carbon\Carbon;
 use Image;
@@ -29,17 +30,14 @@ class ProductController extends Controller
 
     public function create()
     {
-        $data = [
-            'fabricArray' => ['Cotton','Polyester','Wool'],
-            'sleeveArray' => ['Full Sleeve', ' Half Sleeve', 'Short Sleeve', 'Sleeveless'],
-            'patternArray' => ['Checked', 'Plain','Printed', 'Self', 'Solid'],
-            'fitArray' => ['Regular', 'Slim'],
-            'occasionArray' => ['Casual','Formal']
-        ];
+
+        $data = $this->collectData();
 
         $categories = Section::with(['categories'])->get();
 
-        return view('admin.product.create', compact('data','categories'));
+        $brands = Brand::where('status', 1)->get();
+
+        return view('admin.product.create', compact('data', 'categories', 'brands'));
     }
 
     public function store(Request $request)
@@ -56,17 +54,13 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
-        $data = [
-            'fabricArray' => ['Cotton','Polyester','Wool'],
-            'sleeveArray' => ['Full Sleeve', 'Half Sleeve', 'Short Sleeve', 'Sleeveless'],
-            'patternArray' => ['Checked', 'Plain','Printed', 'Self', 'Solid'],
-            'fitArray' => ['Regular', 'Slim'],
-            'occasionArray' => ['Casual','Formal']
-        ];
+        $data = $this->collectData();
 
         $categories = Section::with(['categories'])->get();
 
-        return view('admin.product.edit', compact('product', 'data','categories'));
+        $brands = Brand::where('status', 1)->get();
+
+        return view('admin.product.edit', compact('product', 'data','categories', 'brands'));
     }
 
     public function update(Request $request, Product $product)
@@ -142,6 +136,7 @@ class ProductController extends Controller
     public function recordProduct($data, $request, $product)
     {
         $request->validate([
+            'brand_id' => 'required',
             'category_id' => 'required',
             'name' => 'required',
             'code' => 'required',
@@ -200,6 +195,7 @@ class ProductController extends Controller
         $productData = [
             'category_id' => $category->id,
             'section_id' => $category->section_id,
+            'brand_id' => $data['brand_id'],
             'code' => $data['code'],
             'name' => $data['name'],
             'color' => $data['color'],
@@ -295,5 +291,18 @@ class ProductController extends Controller
         }
         ProductAttribute::where('id', $data['attribute_id'])->update(['status' => $status]);
         return response()->json(['status' => $status, 'attribute_id' => $data['attribute_id']]);
+    }
+
+    public function collectData()
+    {
+        $data = [
+            'fabricArray' => ['Cotton','Polyester','Wool'],
+            'sleeveArray' => ['Full Sleeve', ' Half Sleeve', 'Short Sleeve', 'Sleeveless'],
+            'patternArray' => ['Checked', 'Plain','Printed', 'Self', 'Solid'],
+            'fitArray' => ['Regular', 'Slim'],
+            'occasionArray' => ['Casual','Formal']
+        ];
+
+        return $data;
     }
 }
