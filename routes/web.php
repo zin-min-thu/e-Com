@@ -12,12 +12,11 @@ use Carbon\Traits\Rounding;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Auth::routes();
-// Route::resource('roles', 'RolesController', ['except' => ['edit', 'create']]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -66,4 +65,8 @@ Route::prefix('admin')->namespace('Admin')->group(function() {
         Route::post('update-status-product-image', 'ProductImageController@updateStatus');
         Route::get('delete-product-images/{id}', 'ProductImageController@deleteImages');
     });
+});
+
+Route::namespace('Front')->group(function() {
+    Route::get('/', 'IndexController@index');
 });
