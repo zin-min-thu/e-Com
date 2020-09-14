@@ -1,3 +1,8 @@
+<?php
+	$sections = App\Section::sections();
+	$sections = json_decode(json_encode($sections));
+	// echo "<pre>"; print_r($sections);die;
+?>
 <div id="header">
 	<div class="container">
 		<div id="welcomeLine" class="row">
@@ -18,49 +23,25 @@
 		          <span class="icon-bar"></span>
 		          <span class="icon-bar"></span>
 		        </a>
-		        <a class="brand" href="#">Stack Developers</a>
+		        <a class="brand" href="#">kz-Ecom</a>
 		        <div class="nav-collapse">
 		          <ul class="nav">
 		            <li class="active"><a href="#">Home</a></li>
-		            <li class="dropdown">
-		              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Men <b class="caret"></b></a>
+					@foreach($sections as $section)
+					<li class="dropdown">
+		              <a href="#" class="dropdown-toggle" data-toggle="dropdown"> {{$section->name}} <b class="caret"></b></a>
 		              <ul class="dropdown-menu">
 		              	<li class="divider"></li>
-		                <li class="nav-header"><a href="#">T-Shirts</a></li>
-		                <li><a href="#">Casual T-Shirts</a></li>
-		                <li><a href="#">Formal T-Shirts</a></li>
-		                <li class="divider"></li>
-		                <li class="nav-header"><a href="#">Shirts</a></li>
-		                <li><a href="#">Casual Shirts</a></li>
-		                <li><a href="#">Formal Shirts</a></li>
+						@foreach($section->categories as $category)
+							<li class="nav-header"><a href="#">{{$category->name}}</a></li>
+							@foreach($category->subcategories as $subcategory)
+								<li><a href="#">{{$subcategory->name}}</a></li>
+							@endforeach
+							<li class="divider"></li>
+						@endforeach
 		              </ul>
 		            </li>
-		            <li class="dropdown">
-		              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Women <b class="caret"></b></a>
-		              <ul class="dropdown-menu">
-		              	<li class="divider"></li>
-		                <li class="nav-header"><a href="#">Tops</a></li>
-		                <li><a href="#">Casual Tops</a></li>
-		                <li><a href="#">Formal Tops</a></li>
-		                <li class="divider"></li>
-		                <li class="nav-header"><a href="#">Dresses</a></li>
-		                <li><a href="#">Casual Dresses</a></li>
-		                <li><a href="#">Formal Dresses</a></li>
-		              </ul>
-		            </li>
-		            <li class="dropdown">
-		              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Kids <b class="caret"></b></a>
-		              <ul class="dropdown-menu">
-		              	<li class="divider"></li>
-		                <li class="nav-header"><a href="#">T-Shirts</a></li>
-		                <li><a href="#">Casual T-Shirts</a></li>
-		                <li><a href="#">Formal T-Shirts</a></li>
-		                <li class="divider"></li>
-		                <li class="nav-header"><a href="#">Shirts</a></li>
-		                <li><a href="#">Casual Shirts</a></li>
-		                <li><a href="#">Formal Shirts</a></li>
-		              </ul>
-		            </li>
+					@endforeach
 		            <li><a href="#">About</a></li>
 		          </ul>
 		          <form class="navbar-search pull-left" action="#">
