@@ -29,7 +29,8 @@
 		            <li class="active"><a href="#">Home</a></li>
 					@foreach($sections as $section)
 					<li class="dropdown">
-		              <a href="#" class="dropdown-toggle" data-toggle="dropdown"> {{$section->name}} <b class="caret"></b></a>
+		              @if(count($section->categories) > 0)
+					  <a href="#" class="dropdown-toggle" data-toggle="dropdown"> {{$section->name}} <b class="caret"></b></a>
 		              <ul class="dropdown-menu">
 		              	<li class="divider"></li>
 						@foreach($section->categories as $category)
@@ -40,6 +41,7 @@
 							<li class="divider"></li>
 						@endforeach
 		              </ul>
+					  @endif
 		            </li>
 					@endforeach
 		            <li><a href="#">About</a></li>
