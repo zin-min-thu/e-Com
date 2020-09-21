@@ -20,7 +20,7 @@ $(document).ready(function() {
     });
 
     //Update Section Status
-    $(".updateSectionStatus").click(function() {
+    $(document).on("click",".updateSectionStatus", function() {
         var status = $(this).text();
         var section_id = $(this).attr('section_id');
         $.ajax({
@@ -55,7 +55,7 @@ $(document).ready(function() {
     });
 
     //Confirm Delete
-    $(".confirmDelete").click(function() {
+    $(document).on("click",".confirmDelete", function() {
         var record = $(this).attr("record");
         var recordId = $(this).attr("recordId");
         Swal.fire({
@@ -73,7 +73,8 @@ $(document).ready(function() {
           });
     });
 
-    $(".updateStatusAttribute").click(function() {
+    //Update Sttribute status
+    $(document).on("click",".updateStatusAttribute", function() {
         var status = $(this).text();
         var attribute_id = $(this).attr('attribute_id');
         $.ajax({
@@ -92,7 +93,7 @@ $(document).ready(function() {
         })
     });
 
-    $(".updateStatusProductImage").click(function() {
+    $(document).on("click",".updateStatusProductImage", function() {
         var status = $(this).text();
         var image_id = $(this).attr('productImageId');
         $.ajax({
@@ -111,7 +112,7 @@ $(document).ready(function() {
         })
     });
 
-    $(".updateStatusBrand").click(function() {
+    $(document).on("click",".updateStatusBrand", function() {
         var status = $(this).children("i").attr('status');
         var brand_id = $(this).attr('brand_id');
         $.ajax({
