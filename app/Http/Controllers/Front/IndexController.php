@@ -9,14 +9,16 @@ class IndexController extends Controller
 {
     public function index()
     {
-        $getProducts = Product::where('is_featured', 'Yes')->get()->toArray();
-        $featuredCount = count($getProducts);
-        $featureItemsChunk = array_chunk($getProducts, 4);
+        // Get Featured Products
+        $getProducts = Product::where(['is_featured' => 'Yes', 'status' => 1])->get();
+        $featuredCount = $getProducts->count();
+        $featureItemsChunk = array_chunk($getProducts->toArray(), 4);
 
-        return view('front.index', [
-            'page_name' => "index",
-            'featureItemsChunk' => $featureItemsChunk,
-            'featuredCount' => $featuredCount,
-        ]);
+        // Get Latest Products
+        $latestProducts = Product::orderBy('id', 'Desc')->where('status', 1)->limit(6)->get()->toArray();
+
+        $page_name = "index";
+
+        return view('front.index', compact('page_name','featureItemsChunk','featuredCount','latestProducts'));
     }
 }
