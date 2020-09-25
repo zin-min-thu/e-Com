@@ -112,6 +112,7 @@ $(document).ready(function() {
         })
     });
 
+    //Update Brand Status
     $(document).on("click",".updateStatusBrand", function() {
         var status = $(this).children("i").attr('status');
         var brand_id = $(this).attr('brand_id');
@@ -124,6 +125,26 @@ $(document).ready(function() {
                     $("#brand-"+brand_id).html('<i class="fa fa-toggle-off fa-lg text-red" status="Inactive"></i>')
                 } else if(resp['status'] == 1) {
                     $("#brand-"+brand_id).html('<i class="fa fa-toggle-on fa-lg" status="Active"></i>');
+                }
+            }, error:function() {
+                alert("Error");
+            }
+        })
+    });
+
+    //Update Bunner Status
+    $(document).on("click",".updateStatusBunner", function() {
+        var status = $(this).children("i").attr('status');
+        var bunner_id = $(this).attr('bunner_id');
+        $.ajax({
+            type:'post',
+            url:'/admin/update-status-bunner',
+            data:{status:status,bunner_id:bunner_id},
+            success:function(resp) {
+                if(resp['status'] == 0) {
+                    $("#bunner-"+bunner_id).html('<i class="fa fa-toggle-off fa-lg text-red" status="Inactive"></i>')
+                } else if(resp['status'] == 1) {
+                    $("#bunner-"+bunner_id).html('<i class="fa fa-toggle-on fa-lg" status="Active"></i>');
                 }
             }, error:function() {
                 alert("Error");

@@ -64,6 +64,11 @@ Route::prefix('admin')->namespace('Admin')->group(function() {
         Route::match(['get','post'], '/products/{product}/add-images', 'ProductImageController@addImage');
         Route::post('update-status-product-image', 'ProductImageController@updateStatus');
         Route::get('delete-product-images/{id}', 'ProductImageController@deleteImages');
+
+        //Bunner routes
+        Route::get('bunners', 'BunnerController@index');
+        Route::post('update-status-bunner', 'BunnerController@updateStatus');
+        Route::get('delete-bunner/{bunner}', 'BunnerController@destroy');
     });
 });
 
