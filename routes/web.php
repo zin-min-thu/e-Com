@@ -66,9 +66,10 @@ Route::prefix('admin')->namespace('Admin')->group(function() {
         Route::get('delete-product-images/{id}', 'ProductImageController@deleteImages');
 
         //Bunner routes
-        Route::get('bunners', 'BunnerController@index');
+        Route::resource('bunners', 'BunnerController', ['except' => ['destroy','show']]);
         Route::post('update-status-bunner', 'BunnerController@updateStatus');
-        Route::get('delete-bunner/{bunner}', 'BunnerController@destroy');
+        Route::get('delete-bunner/{bunner}', 'BunnerController@delete');
+        Route::get('delete-bunner-image/{bunner}', 'BunnerController@deleteImage');
     });
 });
 

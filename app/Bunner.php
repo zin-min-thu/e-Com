@@ -10,6 +10,7 @@ class Bunner extends Model
         'image',
         'link',
         'title',
+        'alt',
         'status'
     ];
 }
