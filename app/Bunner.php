@@ -13,4 +13,9 @@ class Bunner extends Model
         'alt',
         'status'
     ];
+
+    public static function getBunners()
+    {
+        return Bunner::where('status',1)->get()->toArray();
+    }
 }
