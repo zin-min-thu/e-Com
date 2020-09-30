@@ -34,4 +34,21 @@ class Category extends Model
     {
         return $this->belongsTo('App\Category', 'parent_id')->select('id','name');
     }
+
+    public static function getCategoryDetails($url)
+    {
+        $catDetails = Category::select('id','name','url')
+                            ->where(['url' => $url, 'status' => 1])
+                            ->with(['subcategories' => function($query) {
+                                    $query->select('id','parent_id')->where('status',1);
+                                }])
+                            ->first()->toArray();
+        $catIds = array();
+        $catIds[] = $catDetails['id'];
+        foreach($catDetails['subcategories'] as $key=> $subId) {
+            $catIds[] = $subId['id'];
+        }
+
+        return compact('catIds','catDetails');
+    }
 }
