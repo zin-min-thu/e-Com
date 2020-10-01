@@ -16,6 +16,7 @@ class ProductController extends Controller
         if($categoryCount > 0) {
             $categoryDetails = Category::getCategoryDetails($url);
             $productLists = Product::whereIn('category_id', $categoryDetails['catIds'])
+                            ->with('brand')
                             ->where('status', 1)       
                             ->get();
         } else {

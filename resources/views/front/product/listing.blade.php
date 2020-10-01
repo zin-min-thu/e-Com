@@ -2,13 +2,13 @@
 @section('content')
 <div class="span9">
     <ul class="breadcrumb">
-        <li><a href="index.html">Home</a> <span class="divider">/</span></li>
-        <li class="active">{{$categoryDetails['catDetails']['name']}}</li>
+        <li><a href="{{url('/')}}">Home</a> <span class="divider">/</span></li>
+        <li class="active">{!! $categoryDetails['breadCrumbs'] !!}</li>
     </ul>
-    <h3> {{$categoryDetails['catDetails']['name']}} <small class="pull-right"> 40 products are available </small></h3>
+    <h3> {{$categoryDetails['catDetails']['name']}} <small class="pull-right"> {{count($productLists)}} products are available </small></h3>
     <hr class="soft"/>
     <p>
-        Nowadays the lingerie industry is one of the most successful business spheres.We always stay in touch with the latest fashion tendencies - that is why our goods are so popular and we have a great number of faithful customers all over the country.
+       {{$categoryDetails['catDetails']['description']}}
     </p>
     <hr class="soft"/>
     <form class="form-horizontal span6">
@@ -219,7 +219,7 @@
                         <div class="caption">
                             <h5>{{$product['name']}}</h5>
                             <p>
-                                I'm a paragraph. Click here
+                                {{$product['brand']['name']}}
                             </p>
                             <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">Rs.{{$product['price']}}</a></h4>
                         </div>

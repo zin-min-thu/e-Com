@@ -37,18 +37,27 @@ class Category extends Model
 
     public static function getCategoryDetails($url)
     {
-        $catDetails = Category::select('id','name','url')
-                            ->where(['url' => $url, 'status' => 1])
-                            ->with(['subcategories' => function($query) {
-                                    $query->select('id','parent_id')->where('status',1);
-                                }])
-                            ->first()->toArray();
+        $catDetails = Category::select('id','parent_id','name','url','description')
+                        ->where(['url' => $url, 'status' => 1])
+                        ->with(['subcategories' => function($query) {
+                                $query->select('id','parent_id','name','description')->where('status',1);
+                            }])
+                        ->first()->toArray();
+
         $catIds = array();
         $catIds[] = $catDetails['id'];
         foreach($catDetails['subcategories'] as $key=> $subId) {
             $catIds[] = $subId['id'];
         }
 
-        return compact('catIds','catDetails');
+        if($catDetails['parent_id'] == 0) {
+            $breadCrumbs = '<a href="'.url($catDetails['url']).'">'.$catDetails['name'].'</a>';
+        } else {
+            $getParantCategory = Category::select('id','name','url')->where('id', $catDetails['parent_id'])->first()->toArray();
+            $breadCrumbs = '<a href="'.url($getParantCategory['url']). '">'.$getParantCategory['name'].'</a>'."&nbsp;/&nbsp;".
+                            '<a href="'.url($catDetails['url']). '">'.$catDetails['name'].'</a>';
+        }
+
+        return compact('catIds','catDetails','breadCrumbs');
     }
 }

@@ -158,7 +158,7 @@ class ProductController extends Controller
                 //Upload medium size image
                 Image::make($image)->resize(520,600)->save($medium_image_path);
                 //Upload small size image
-                Image::make($image)->resize(260,300)->save($small_image_path);
+                Image::make($image)->resize(250,250)->save($small_image_path);
             }
         }
         else if (isset($product->image)) {
