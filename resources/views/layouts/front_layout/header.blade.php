@@ -1,8 +1,8 @@
-<?php
+@php
 	$sections = App\Section::sections();
 	$sections = json_decode(json_encode($sections));
 	// echo "<pre>"; print_r($sections);die;
-?>
+@endphp
 <div id="header">
 	<div class="container">
 		<div id="welcomeLine" class="row">
@@ -34,9 +34,9 @@
 		              <ul class="dropdown-menu">
 		              	<li class="divider"></li>
 						@foreach($section->categories as $category)
-							<li class="nav-header"><a href="#">{{$category->name}}</a></li>
+							<li class="nav-header"><a href="{{url($category->url)}}">{{$category->name}}</a></li>
 							@foreach($category->subcategories as $subcategory)
-								<li><a href="#">{{$subcategory->name}}</a></li>
+								<li><a href="{{url($subcategory->url)}}">{{$subcategory->name}}</a></li>
 							@endforeach
 							<li class="divider"></li>
 						@endforeach
