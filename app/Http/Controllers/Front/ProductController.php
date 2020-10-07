@@ -17,8 +17,34 @@ class ProductController extends Controller
             $categoryDetails = Category::getCategoryDetails($url);
             $productLists = Product::whereIn('category_id', $categoryDetails['catIds'])
                             ->with('brand')
-                            ->where('status', 1)       
-                            ->paginate(6);
+                            ->where('status', 1);
+
+            if(request('sort')) {
+                switch (request('sort')) {
+                    case 'latest' :
+                        $productLists->orderBy('id', 'Desc');
+                        break;
+                    case 'name_a_z' :
+                        $productLists->orderBy('name', 'Asc');
+                        break;
+                    case 'name_z_a' :
+                        $productLists->orderBy('name', 'Desc');
+                        break;
+                    case 'lowest_price' :
+                        $productLists->orderBy('price', 'Asc');
+                        break;
+                    case 'higest_price' :
+                        $productLists->orderBy('price', 'Desc');
+                        break;
+                    default:
+                        $productLists->orderBy('id', 'Desc');
+                }
+            } else {
+                $productLists->orderBy('id', 'Desc');
+            }
+
+            $productLists = $productLists->paginate(6);
+
         } else {
             abort(404);
         }

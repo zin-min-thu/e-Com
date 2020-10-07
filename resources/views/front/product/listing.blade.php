@@ -14,15 +14,16 @@
     <form class="form-horizontal span6">
         <div class="control-group">
             <label class="control-label alignL">Sort By </label>
-            <select>
-                <option>Priduct name A - Z</option>
-                <option>Priduct name Z - A</option>
-                <option>Priduct Stoke</option>
-                <option>Price Lowest first</option>
+            <select onchange="this.form.submit()" name="sort">
+                <option value="" disabled selected>Select</option>
+                <option value="latest" {{request('sort') == 'latest' ? 'selected' : ''}} >Latest Product</option>
+                <option value="name_a_z" {{request('sort') == 'name_a_z' ? 'selected' : ''}} >Priduct name A - Z</option>
+                <option value="name_z_a" {{request('sort') == 'name_z_a' ? 'selected' : ''}} >Priduct name Z - A</option>
+                <option value="lowest_price" {{request('sort') == 'lowest_price' ? 'selected' : ''}}>Price Lowest first</option>
+                <option value="higest_price" {{request('sort') == 'higest_price' ? 'selected' : ''}} >Price Higest first</option>
             </select>
         </div>
     </form>
-    
     <div id="myTab" class="pull-right">
         <a href="#listView" data-toggle="tab"><span class="btn btn-large"><i class="icon-list"></i></span></a>
         <a href="#blockView" data-toggle="tab"><span class="btn btn-large btn-primary"><i class="icon-th-large"></i></span></a>
@@ -93,8 +94,11 @@
     </div>
     <a href="compair.html" class="btn btn-large pull-right">Compair Product</a>
     <div class="pagination">
-        {{$productLists->links()}}
-        <!-- {{$productLists->appends(['sort' => 'price_lowest'])->links()}} -->
+        @if(isset($_GET['sort']) && !empty($_GET['sort']))
+            {{$productLists->appends(['sort' => $_GET['sort']])->links()}}
+        @else
+            {{$productLists->links()}}
+        @endif
     </div>
     <br class="clr"/>
 </div>
