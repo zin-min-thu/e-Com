@@ -18,7 +18,7 @@ class ProductController extends Controller
             $productLists = Product::whereIn('category_id', $categoryDetails['catIds'])
                             ->with('brand')
                             ->where('status', 1)       
-                            ->get();
+                            ->paginate(6);
         } else {
             abort(404);
         }
