@@ -31,7 +31,7 @@ class ProductController extends Controller
     public function create()
     {
 
-        $data = $this->collectData();
+        $data = Product::collectFilterProducts();
 
         $categories = Section::with(['categories'])->get();
 
@@ -54,7 +54,7 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
-        $data = $this->collectData();
+        $data = Product::collectFilterProducts();
 
         $categories = Section::with(['categories'])->get();
 
@@ -293,16 +293,4 @@ class ProductController extends Controller
         return response()->json(['status' => $status, 'attribute_id' => $data['attribute_id']]);
     }
 
-    public function collectData()
-    {
-        $data = [
-            'fabricArray' => ['Cotton','Polyester','Wool'],
-            'sleeveArray' => ['Full Sleeve', ' Half Sleeve', 'Short Sleeve', 'Sleeveless'],
-            'patternArray' => ['Checked', 'Plain','Printed', 'Self', 'Solid'],
-            'fitArray' => ['Regular', 'Slim'],
-            'occasionArray' => ['Casual','Formal']
-        ];
-
-        return $data;
-    }
 }

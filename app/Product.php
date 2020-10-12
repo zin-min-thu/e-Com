@@ -56,4 +56,17 @@ class Product extends Model
     {
         return $this->hasMany('App\ProductImage');
     }
+
+    public static function collectFilterProducts()
+    {
+        $data = [
+            'fabricArray' => ['Cotton','Polyester','Wool'],
+            'sleeveArray' => ['Full Sleeve', ' Half Sleeve', 'Short Sleeve', 'Sleeveless'],
+            'patternArray' => ['Checked', 'Plain','Printed', 'Self', 'Solid'],
+            'fitArray' => ['Regular', 'Slim'],
+            'occasionArray' => ['Casual','Formal']
+        ];
+
+        return $data;
+    }
 }

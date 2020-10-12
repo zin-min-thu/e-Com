@@ -25,6 +25,10 @@ class ProductController extends Controller
                                 ->with('brand')
                                 ->where('status', 1);
 
+                if(isset($data['fabric']) && !empty($data['fabric'])) {
+                    $productLists = $productLists->whereIn('fabric',$data['fabric']);
+                }
+
                 if(!empty($data['sort'])) {
                     switch ($data['sort']) {
                         case 'latest' :
@@ -72,7 +76,10 @@ class ProductController extends Controller
                 abort(404);
             }
 
-            return view('front.product.listing', compact('categoryDetails','productLists','url'));
+            $listing = "listing";
+            $data = Product::collectFilterProducts();
+
+            return view('front.product.listing', compact('categoryDetails','productLists','url','data','listing'));
         }
 
     }
