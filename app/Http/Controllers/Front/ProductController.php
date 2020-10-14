@@ -15,8 +15,8 @@ class ProductController extends Controller
 
             $data = $request->all();
             $url = $data['url'];
-
             $categoryCount = Category::where(['url' => $url, 'status' => 1])->count();
+
             if($categoryCount > 0) {
 
                 $categoryDetails = Category::getCategoryDetails($url);
@@ -25,8 +25,29 @@ class ProductController extends Controller
                                 ->with('brand')
                                 ->where('status', 1);
 
+                //Filter if slected fabric
                 if(isset($data['fabric']) && !empty($data['fabric'])) {
                     $productLists = $productLists->whereIn('fabric',$data['fabric']);
+                }
+
+                //Filter if slected sleeve
+                if(isset($data['sleeve']) && !empty($data['sleeve'])) {
+                    $productLists = $productLists->whereIn('sleeve',$data['sleeve']);
+                }
+
+                //Filter if slected pattern
+                if(isset($data['pattern']) && !empty($data['pattern'])) {
+                    $productLists = $productLists->whereIn('pattern',$data['pattern']);
+                }
+
+                //Filter if slected fit
+                if(isset($data['fit']) && !empty($data['fit'])) {
+                    $productLists = $productLists->whereIn('fit',$data['fit']);
+                }
+
+                //Filter if slected occasion
+                if(isset($data['occasion']) && !empty($data['occasion'])) {
+                    $productLists = $productLists->whereIn('occasion',$data['occasion']);
                 }
 
                 if(!empty($data['sort'])) {
