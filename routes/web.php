@@ -69,4 +69,6 @@ Route::namespace('Front')->group(function() {
         Route::get('/'.$url, 'ProductController@listing');
     }
 
+    //Product detail routes
+    Route::get('product/{id}', 'ProductDetailController@detail');
 });
