@@ -12,6 +12,8 @@ class ProductDetailController extends Controller
     {
         $product = Product::with(['brand','attributes','images'])->where('id', $id)->first()->toArray();
 
-        return view('front.product.detail', compact('product'));
+        $total_stock = collect($product['attributes'])->sum('stock');
+
+        return view('front.product.detail', compact('product','total_stock'));
     }
 }
