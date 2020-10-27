@@ -1,6 +1,12 @@
 
 $(document).ready(function() {
 
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
     $('#sort').on('change', function() {
         var sort = $(this).val();
         var url = $('#url').val();
@@ -135,4 +141,21 @@ $(document).ready(function() {
 
         return fabric;
     }
+
+    //Cannge product price by size of attribute
+    $('#change-size').on('change', function() {
+        var size = $(this).val();
+        var product_id = $(this).attr('product-id');
+        $.ajax({
+            type:"post",
+            url:'/change-product-price',
+            data:{size:size,product_id:product_id},
+            success:function(resp) {
+                $('.change-price').html("Rs."+resp);
+            }, error:function() {
+                alert("Error");
+            }
+        })
+
+    })
 })
