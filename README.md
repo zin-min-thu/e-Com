@@ -19,15 +19,6 @@ Run the following command in your terminal:
 ```
 git clone https://github.com/zin-min-thu/E-Com.git
 ```
-### Install dependencies
-
-Laravel use Composer to manage package dependencies. Make sure your development machine has Composer installed.
-
-Go to your project root folder and run the following command:
-
-```
-composer install
-```
 
 ### Create a local env file
 
@@ -39,6 +30,15 @@ cp .env.example .env
 
 Then update the config settings for database connection.
 
+### Install dependencies
+
+Laravel use Composer to manage package dependencies. Make sure your development machine has Composer installed.
+
+Go to your project root folder and run the following command:
+
+```
+composer install
+```
 ### Migrate the database
 
 Make sure your database connection settings are valid.

@@ -11,11 +11,17 @@ class ProductDetailController extends Controller
 {
     public function detail($id)
     {
-        $product = Product::with(['brand','attributes','images'])->where('id', $id)->first()->toArray();
+        $productDetail = Product::with(['category','brand','attributes','images'])->where('id', $id)->first()->toArray();
 
-        $total_stock = collect($product['attributes'])->sum('stock');
+        $total_stock = collect($productDetail['attributes'])->sum('stock');
 
-        return view('front.product.detail', compact('product','total_stock'));
+        $relatedProducts = Product::where('category_id', $productDetail['category']['id'])
+                                ->where('id','!=',$productDetail['id'])
+                                ->inRandomOrder()
+                                ->limit(3)
+                                ->get()->toArray();
+
+        return view('front.product.detail', compact('productDetail','total_stock','relatedProducts'));
     }
 
     public function changePrice(Request $request)

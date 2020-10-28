@@ -41,7 +41,7 @@
         @foreach($latestProducts as $key => $product)
         <li class="span3">
             <div class="thumbnail">
-                <a  href="product_details.html">
+                <a  href="{{url('product/'.$product['id'])}}">
                 @if(!empty($product['image'] && file_exists('images/product_images/small/'.$product['image'])))
                     <img style="width: 160px; height: 140px;" src="{{ asset('images/product_images/small/'.$product['image'])}}" alt="">
                 @else

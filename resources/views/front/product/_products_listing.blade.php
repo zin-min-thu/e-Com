@@ -3,7 +3,7 @@
         @foreach($productLists as $product)
         <li class="span3">
             <div class="thumbnail">
-                <a href="product_details.html">
+                <a href="{{url('product/'.$product['id'])}}">
                     @if(!empty($product['image']) && file_exists('images/product_images/small/'.$product['image']))
                         <img src="{{url('images/product_images/small/'.$product['image'])}}" style="width: 80px; height: 100px;" alt="">
                     @else
