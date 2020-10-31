@@ -13,7 +13,7 @@
                             <li class="span3">
                                 <div class="thumbnail">
                                     <i class="tag"></i>
-                                    <a href="product_details.html">
+                                    <a href="{{url('product/'.$item['id'])}}">
                                     @if(!empty($item['image'] && file_exists('images/product_images/small/'.$item['image'])))
                                         <img src="{{ asset('images/product_images/small/'.$item['image'])}}" alt="">
                                     @else
