@@ -77,17 +77,18 @@
                                           @include('admin.product._update_status')
                                       </td>
                                       <td>
-                                        <a title="Add product attributes" href="{{url('admin/products/'.$product->id.'/add-attribute')}}" class="btn btn-primary btn-sm">
-                                          <i class="fa fa-plus"></i>
-                                        </a>
-                                        <a title="Add product images" href="{{url('admin/products/'.$product->id.'/add-images')}}" class="btn btn-info btn-sm">
-                                          <i class="fa fa-plus-circle"></i>
-                                        </a>
                                         <a title="Edit Product" href="{{url('admin/products/'.$product->id).'/edit'}}" class="btn btn-info btn-sm">
                                         &nbsp;&nbsp;<i class="fa fa-edit"></i>
                                         </a>
                                         <a title="Delete Product" class="confirmDelete btn btn-danger btn-sm" record="product" recordId="{{$product->id}}" href="javascript:void(0)">
                                         &nbsp;&nbsp;<i class="fa fa-trash"></i>
+                                        </a>
+                                        <br>
+                                        <a style="margin-top:3px;" title="Add product attributes" href="{{url('admin/products/'.$product->id.'/add-attribute')}}" class="btn btn-primary btn-sm">
+                                          <i class="fa fa-plus">Attr</i>
+                                        </a>
+                                        <a style="margin-top:3px;" title="Add product images" href="{{url('admin/products/'.$product->id.'/add-images')}}" class="btn btn-info btn-sm">
+                                          <i class="fa fa-plus-circle">Image</i>
                                         </a>
                                       </td>
                                   </tr>

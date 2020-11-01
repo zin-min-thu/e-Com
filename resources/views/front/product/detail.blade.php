@@ -37,6 +37,22 @@
             </div>
         </div>
         <div class="span6">
+            @if(session('success_message'))
+            <div class="alert alert-success" role="alert">
+                {{session('success_message')}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @endif
+            @if(session('error_message'))
+            <div class="alert alert-danger" role="alert">
+                {{session('error_message')}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @endif
             <h3>{{$productDetail['name']}}</h3>
             <small>- {{$productDetail['brand']['name']}}</small>
             <hr class="soft"/>

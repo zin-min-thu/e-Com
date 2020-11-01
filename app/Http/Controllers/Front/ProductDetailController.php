@@ -11,7 +11,10 @@ class ProductDetailController extends Controller
 {
     public function detail($id)
     {
-        $productDetail = Product::with(['category','brand','attributes','images'])->where('id', $id)->first()->toArray();
+        $productDetail = Product::with(['category','brand','attributes' => function($query) {
+                                $query->where('status',1);
+                            },'images'])
+                            ->where('id', $id)->first()->toArray();
 
         $total_stock = collect($productDetail['attributes'])->sum('stock');
 
