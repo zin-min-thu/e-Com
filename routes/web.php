@@ -72,5 +72,8 @@ Route::namespace('Front')->group(function() {
     //Product detail routes
     Route::get('product/{id}', 'ProductDetailController@detail');
     Route::post('change-product-price', 'ProductDetailController@changePrice');
+
+    //Cart routes
     Route::post('add-to-cart', 'CartController@addToCart');
+    Route::get('/cart', 'CartController@cart');
 });

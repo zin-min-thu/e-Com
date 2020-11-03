@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Front;
 
+use Auth;
 use Session;
 use App\Cart;
 use App\ProductAttribute;
@@ -31,8 +32,13 @@ class CartController extends Controller
                     Session::put('session_id',$session_id);
                 }
 
-                // Check product already exists in cart.
-                $countProduct = Cart::where(['product_id' => $data['product_id'],'size' => $data['size']])->count();
+                // Check product already exists in user cart.
+                if(Auth::check()) {
+                    $countProduct = Cart::where(['product_id' => $data['product_id'],'size' => $data['size'],'user_id' => Auth::user()->id])->count();
+                } else {
+                    $countProduct = Cart::where(['product_id' => $data['product_id'],'size' => $data['size'],'session_id' => $session_id])->count();
+                }
+
                 if($countProduct > 0) {
                     session::flash('error_message','Product already exists in cart.');
                     return redirect()->back();
@@ -47,5 +53,12 @@ class CartController extends Controller
                 session::flash('success_message','Product added to cart successful.');
                 return redirect()->back();
         }
+    }
+
+    public function cart()
+    {
+        $productItems = Cart::productItems();
+
+        return view('front.cart.cart',compact('productItems'));
     }
 }
