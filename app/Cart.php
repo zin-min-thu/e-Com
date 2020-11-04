@@ -21,20 +21,18 @@ class Cart extends Model
             $productItems = Cart::with('product')
                             ->where('user_id',Auth::user()->id)
                             ->orderBy('id','Desc')
-                            ->get()
-                            ->toArray();
+                            ->get();
         }else {
             $productItems = Cart::with('product')
                             ->where('session_id',Session::get('session_id'))
                             ->orderBy('id','Desc')
-                            ->get()
-                            ->toArray();
+                            ->get();
         }
         return $productItems;
     }
 
     public function product()
     {
-        return $this->belongsTo('App\Product','product_id');
+        return $this->belongsTo('App\Product','product_id')->with('attributes');
     }
 }

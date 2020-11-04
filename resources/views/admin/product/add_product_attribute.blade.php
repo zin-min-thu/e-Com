@@ -69,6 +69,9 @@
                                 <p>
                                     <strong>Product Color:</strong>&nbsp;&nbsp;{{$product->color}}
                                 </p>
+                                <p>
+                                    <strong>Product Color:</strong>&nbsp;&nbsp;{{$product->price}}
+                                </p>
                             </div>
                             <div class="col-md-4">
                                 @if(!empty($product->image))
