@@ -15,7 +15,23 @@
                     <p>
                         {{$product['brand']['name']}}
                     </p>
-                    <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">Rs.{{$product['price']}}</a></h4>
+                    <h4 style="text-align:center">
+                        <a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a>
+                        <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a>
+                        <a class="btn btn-primary" href="#">
+                            @if($product->getDiscountedPrice() > 0)
+                                <del>Rs.{{$product['price']}}</del>
+                                @if($product->discount > 0)
+                                    {{$product->discount}}%
+                                @else
+                                    {{$product->category->first()->discount}}%
+                                @endif
+                                ->({{$product->getDiscountedPrice()}})
+                            @else
+                                Rs.{{$product['price']}}
+                            @endif
+                        </a>
+                    </h4>
                 </div>
             </div>
         </li>

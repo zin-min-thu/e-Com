@@ -69,4 +69,19 @@ class Product extends Model
 
         return $data;
     }
+
+    public function getDiscountedPrice()
+    {
+        $category_discount = $this->category->first()->discount;
+
+        if($category_discount > 0) {
+            $discount = $this->price - ($this->price*($category_discount/100));
+        }
+        else if($this->discount > 0) {
+            $discount = $this->price - ($this->price * ($this->discount/100));
+        }else {
+            $discount = 0;
+        }
+        return $discount;
+    }
 }

@@ -61,7 +61,19 @@
                 @csrf
                 <input type="hidden" name="product_id" value="{{$productDetail['id']}}">
                 <div class="control-group">
-                    <h4 class="change-price">Rs.{{$productDetail['price']}}</h4>
+                    <h4 class="change-price">
+                    @if($productDetail->getDiscountedPrice() > 0)
+                        <del>Rs.{{$productDetail['price']}}</del>
+                        @if($productDetail->discount > 0)
+                            {{$productDetail->discount}}%
+                        @else
+                            {{$productDetail->category->first()->discount}}%
+                        @endif
+                        ->({{$productDetail->getDiscountedPrice()}})
+                    @else
+                        Rs.{{$productDetail['price']}}
+                    @endif
+                    </h4>
                         <select name="size" id="change-size" product-id="{{$productDetail['id']}}" class="span2 pull-left" required>
                             <option selected disabled>Slect Product Size</option>
                             @foreach($productDetail['attributes'] as $attribute)
