@@ -72,16 +72,46 @@ class Product extends Model
 
     public function getDiscountedPrice()
     {
-        $category_discount = $this->category->first()->discount;
+        $category_discount = $this->category->discount;
 
-        if($category_discount > 0) {
-            $discount = $this->price - ($this->price*($category_discount/100));
-        }
-        else if($this->discount > 0) {
+        if($this->discount > 0) {
             $discount = $this->price - ($this->price * ($this->discount/100));
+        }
+        else if($category_discount > 0) {
+            $discount = $this->price - ($this->price*($category_discount/100));
         }else {
             $discount = 0;
         }
         return $discount;
+    }
+
+    public static function getAttrDiscountedPrice($product_id,$size)
+    {
+        $attribute_price = ProductAttribute::where(['product_id' => $product_id,'size'=>$size])->first()->price;
+
+        $product = Product::where('id',$product_id)->first();
+
+        $category_discount = $product->category->discount;
+
+        if($product->discount > 0) {
+            $discount = $product->discount;
+            $discount_price = $attribute_price - ($attribute_price * ($product->discount/100));
+        }
+        else if($category_discount > 0) {
+            $discount = $category_discount;
+            $discount_price = $attribute_price - ($attribute_price*($category_discount/100));
+        }
+        else {
+            $discount = 0;
+            $discount_price = 0;
+        }
+
+        $data = [
+            'attribute_price' => $attribute_price,
+            'discounted_price'=>$discount_price,
+            'discount' => $discount,
+        ];
+
+        return $data;
     }
 }

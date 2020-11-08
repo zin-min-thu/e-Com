@@ -67,7 +67,7 @@
                         @if($productDetail->discount > 0)
                             {{$productDetail->discount}}%
                         @else
-                            {{$productDetail->category->first()->discount}}%
+                            {{$productDetail->category->discount}}%
                         @endif
                         ->({{$productDetail->getDiscountedPrice()}})
                     @else

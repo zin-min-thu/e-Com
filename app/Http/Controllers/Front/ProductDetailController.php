@@ -30,7 +30,8 @@ class ProductDetailController extends Controller
     public function changePrice(Request $request)
     {
         $data = $request->all();
-        $getAttribute = ProductAttribute::where(['product_id' => $data['product_id'], 'size' => $data['size']])->first();
-        return $getAttribute->price;
+        $getAttribute = Product::getAttrDiscountedPrice($data['product_id'],$data['size']);
+
+        return $getAttribute;
     }
 }
