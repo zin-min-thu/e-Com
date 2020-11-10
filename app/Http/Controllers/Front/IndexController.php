@@ -12,10 +12,10 @@ class IndexController extends Controller
         // Get Featured Products
         $getProducts = Product::where(['is_featured' => 'Yes', 'status' => 1])->get();
         $featuredCount = $getProducts->count();
-        $featureItemsChunk = array_chunk($getProducts->toArray(), 4);
 
-        // Get Latest Products
-        $latestProducts = Product::orderBy('id', 'Desc')->where('status', 1)->limit(6)->get()->toArray();
+        $featureItemsChunk = $getProducts->chunk(4);
+
+        $latestProducts = Product::orderBy('id', 'Desc')->where('status', 1)->limit(6)->get();
 
         $page_name = "index";
 

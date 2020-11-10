@@ -13,16 +13,29 @@
                             <li class="span3">
                                 <div class="thumbnail">
                                     <i class="tag"></i>
-                                    <a href="{{url('product/'.$item['id'])}}">
-                                    @if(!empty($item['image'] && file_exists('images/product_images/small/'.$item['image'])))
-                                        <img src="{{ asset('images/product_images/small/'.$item['image'])}}" alt="">
+                                    <a href="{{url('product/'.$item->id)}}">
+                                    @if(!empty($item->image && file_exists('images/product_images/small/'.$item->image)))
+                                        <img src="{{ asset('images/product_images/small/'.$item->image)}}" alt="">
                                     @else
                                         <img src="{{ asset('images/product_images/small/no_image.png')}}" alt="">
                                     @endif
                                     </a>
                                     <div class="caption">
-                                        <h5>{{$item['name']}}</h5>
-                                        <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">Rs.{{$item['price']}}</span></h4>
+                                        <h5>{{$item->name}}</h5>
+                                        <p>
+                                            @if($item->getDiscountedPrice() > 0)
+                                            <strong><del>Rs.{{$item->price}}</del></strong>
+                                            @if($item->discount > 0)
+                                                <span class="badge badge-info" style="padding-top:5px;">{{$item->discount}}%</span>
+                                            @else
+                                            <span class="badge badge-info" style="padding-top:5px;">{{$item->category->discount}}%</span>
+                                            @endif
+                                            <strong>->({{$item->getDiscountedPrice()}})</strong>
+                                            @else
+                                            <strong>Rs.{{$item->price}}</strong>
+                                            @endif
+                                            <strong><a class="btn font-weight-bold" style="margin-top:5px;" href="{{url('product/'.$item->id)}}">VIEW</a></strong>
+                                        </p>
                                     </div>
                                 </div>
                             </li>
@@ -41,19 +54,34 @@
         @foreach($latestProducts as $key => $product)
         <li class="span3">
             <div class="thumbnail">
-                <a  href="{{url('product/'.$product['id'])}}">
-                @if(!empty($product['image'] && file_exists('images/product_images/small/'.$product['image'])))
-                    <img style="width: 160px; height: 140px;" src="{{ asset('images/product_images/small/'.$product['image'])}}" alt="">
+                <a  href="{{url('product/'.$product->id)}}">
+                @if(!empty($product->image && file_exists('images/product_images/small/'.$product->image)))
+                    <img style="width: 160px; height: 140px;" src="{{ asset('images/product_images/small/'.$product->image)}}" alt="">
                 @else
                     <img style="width: 160px; height: 140px;" src="{{ asset('images/product_images/small/no_image.png')}}" alt="">
                 @endif
                 </a>
                 <div class="caption">
-                    <h5>{{$product['name']}}</h5>
+                    <h5>{{$product->name}}</h5>
                     <p>
-                        {{$product['code']}} ({{$product['color']}})
+                        {{$product->code}} ({{$product->color}})
                     </p>
-                    <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">Rs.{{$product['price']}}</a></h4>
+                    <h4 style="text-align:center">
+                        <a class="btn" href="{{url('product/'.$product->id)}}"> <i class="icon-zoom-in"></i></a> <a class="btn" href="{{url('product/'.$product->id)}}">Add to <i class="icon-shopping-cart"></i></a><br>
+                        <a class="btn btn-primary" href="#">
+                        @if($product->getDiscountedPrice() > 0)
+                            <del>Rs.{{$product->price}}</del>
+                            @if($product->discount > 0)
+                            {{$product->discount}}%
+                            @else
+                            {{$product->discount}}%
+                            @endif
+                            ->({{$product->getDiscountedPrice()}})
+                        @else
+                            Rs.{{$product->price}}
+                        @endif
+                        </a>
+                    </h4>
                 </div>
             </div>
         </li>

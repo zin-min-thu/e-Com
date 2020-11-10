@@ -51,7 +51,7 @@ class CartController extends Controller
                     'quantity' => $data['quantity'],
                 ]);
                 session::flash('success_message','Product added to cart successful.');
-                return redirect()->back();
+                return redirect('cart');
         }
     }
 

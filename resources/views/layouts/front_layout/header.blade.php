@@ -9,7 +9,7 @@
 			<div class="span6">Welcome!<strong> User</strong></div>
 			<div class="span6">
 				<div class="pull-right">
-					<a href="product_summary.html"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ 3 ] Items in your cart </span> </a>
+					<a href="{{url('cart')}}"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ 3 ] Items in your cart </span> </a>
 				</div>
 			</div>
 		</div>
@@ -23,7 +23,7 @@
 		          <span class="icon-bar"></span>
 		          <span class="icon-bar"></span>
 		        </a>
-		        <a class="brand" href="#">kz-Ecom</a>
+		        <a class="brand" href="{{url('/')}}">kz-Ecom</a>
 		        <div class="nav-collapse">
 		          <ul class="nav">
 		            <li class="active"><a href="#">Home</a></li>

@@ -7,6 +7,14 @@
     </ul>
 	<h3>  SHOPPING CART [ <small>3 Item(s) </small>]<a href="products.html" class="btn btn-large pull-right"><i class="icon-arrow-left"></i> Continue Shopping </a></h3>	
 	<hr class="soft"/>
+	@if(session('success_message'))
+	<div class="alert alert-success" role="alert">
+		{{session('success_message')}}
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	@endif
 	<table class="table table-bordered">
 		<tr><th> I AM ALREADY REGISTERED  </th></tr>
 		 <tr> 
