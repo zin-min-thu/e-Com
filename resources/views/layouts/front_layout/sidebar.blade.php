@@ -2,10 +2,11 @@
 	$sections = App\Section::sections();
 	$sections = json_decode(json_encode($sections));
 	// echo "<pre>"; print_r($sections);die;
+    $cart_count = App\Cart::productItems()->count();
 @endphp
 <div id="sidebar" class="span3">
     <div class="well well-small">
-        <a id="myCart" href="{{url('cart')}}"><img src="{{ asset('images/front_images/ico-cart.png')}}" alt="cart">3 Items in your cart</a>
+        <a id="myCart" href="{{url('cart')}}"><img src="{{ asset('images/front_images/ico-cart.png')}}" alt="cart">{{$cart_count}} Items in your cart</a>
     </div>
     <ul id="sideManu" class="nav nav-tabs nav-stacked">
         @foreach($sections as $section)
