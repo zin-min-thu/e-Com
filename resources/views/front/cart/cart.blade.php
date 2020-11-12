@@ -5,7 +5,7 @@
 		<li><a href="index.html">Home</a> <span class="divider">/</span></li>
 		<li class="active"> SHOPPING CART</li>
     </ul>
-	<h3>  SHOPPING CART [ <small>3 Item(s) </small>]<a href="products.html" class="btn btn-large pull-right"><i class="icon-arrow-left"></i> Continue Shopping </a></h3>	
+	<h3>  SHOPPING CART [ <small>{{$productItems->count()}} Item(s) </small>]<a href="products.html" class="btn btn-large pull-right"><i class="icon-arrow-left"></i> Continue Shopping </a></h3>
 	<hr class="soft"/>
 	@if(session('success_message'))
 	<div class="alert alert-success" role="alert">
@@ -54,53 +54,49 @@
 				<th>Description</th>
 				<th colspan="2">Quantity/Update</th>
 				<th>Price</th>
-				<th>Discount</th>
-				<th>Total</th>
+				<th>Discount Amount</th>
+				<th>Sub Total</th>
 			</tr>
 		</thead>
 		<tbody>
-			<?php $totals = 0;?>
+			<?php $totals = 0; $total_discount = 0;?>
 			@foreach($productItems as $item)
 			<tr>
 				<td> <img width="60" src="{{asset('images/product_images/small/'.$item['product']['image'])}}" alt=""/></td>
 				<td colspan="2">
-					{{$item['product']['name']}}({{$item['product']['code']}})<br/>
-					Color : {{$item['product']['color']}}<br/>
+					{{$item->product->name}}({{$item->product->code}})<br/>
+					Color : {{$item->product->color}}<br/>
 					Size : {{$item['size']}}
 				</td>
 				<td>
 				<div class="input-append">
-					<input class="span1" style="max-width:34px" value="{{$item['quantity']}}" id="appendedInputButtons" size="16" type="text">
+					<input class="span1" style="max-width:34px" value="{{$item->quantity}}" id="appendedInputButtons" size="16" type="text">
 					<button class="btn" type="button"><i class="icon-minus"></i></button>
 					<button class="btn" type="button"><i class="icon-plus"></i></button>
 					<button class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i></button>
 				</div>
 				</td>
-				<td>
-					@foreach($item['product']['attributes'] as $attribute)
-						@if($attribute['product_id'] == $item['product_id'] && $attribute['size'] == $item['size'])
-						Rs.{{$attribute['price']}}.00
-						<?php $attribute_price = $attribute['price']; ?>
-						@endif
-					@endforeach
-				</td>
-				<td>Rs.0.00</td>
-				<td>Rs.{{$item['quantity'] * $attribute_price}}.00</td>
+				<td>MMK {{$item->getCalculatedProduct()['discounted_price']}}</td>
+				<td>MMK {{$item->getCalculatedProduct()['discount']}}.00</td>
+				<td>MMK {{$item->quantity * $item->getCalculatedProduct()['discounted_price']}}.00</td>
 			</tr>
-			<?php $totals = $totals+($item['quantity'] * $attribute_price);?>
+			<?php
+				$totals = $totals+($item->quantity * $item->getCalculatedProduct()['discounted_price']);
+				$total_discount = $total_discount+$item->getCalculatedProduct()['discount'];
+			?>
 			@endforeach
 			
 			<tr>
 				<td colspan="6" style="text-align:right">Total Price:	</td>
-				<td> Rs.{{$totals}}.00</td>
+				<td> MMK {{$totals}}.00</td>
 			</tr>
 				<tr>
 				<td colspan="6" style="text-align:right">Total Discount:	</td>
-				<td> Rs.0.00</td>
+				<td> MMK {{$total_discount}}.00</td>
 			</tr>
 			<tr>
-				<td colspan="6" style="text-align:right"><strong>TOTAL (Rs.3000 - Rs.0 + Rs.0) =</strong></td>
-				<td class="label label-important" style="display:block"> <strong> Rs.{{$totals}}.00 </strong></td>
+				<td colspan="6" style="text-align:right"><strong>TOTAL (MMK) =</strong></td>
+				<td class="label label-important" style="display:block"> <strong> MMK {{$totals}}.00 </strong></td>
 			</tr>
 		</tbody>
     </table>

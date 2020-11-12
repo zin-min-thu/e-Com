@@ -57,7 +57,7 @@ class CartController extends Controller
 
     public function cart()
     {
-        $productItems = Cart::productItems()->toArray();
+        $productItems = Cart::productItems();
 
         return view('front.cart.cart',compact('productItems'));
     }

@@ -151,8 +151,8 @@ $(document).ready(function() {
             url:'/change-product-price',
             data:{size:size,product_id:product_id},
             success:function(resp) {
-                if(resp['discounted_price'] > 0) {
-                    $('.change-price').html("<del>Rs."+resp['attribute_price']+"</del> "+resp['discount']+"%"+" ->("+resp['discounted_price']+")");
+                if(resp['discount'] > 0) {
+                    $('.change-price').html("<del>Rs."+resp['attribute_price']+"</del> "+resp['discount_percent']+"%"+" ->("+resp['discounted_price']+")");
                 }else {
                     $('.change-price').html("Rs."+resp['attribute_price']);
                 }

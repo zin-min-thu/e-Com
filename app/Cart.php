@@ -35,4 +35,9 @@ class Cart extends Model
     {
         return $this->belongsTo('App\Product','product_id')->with('attributes');
     }
+
+    public function getCalculatedProduct()
+    {
+        return Product::getAttrDiscountedPrice($this->product_id,$this->size);
+    }
 }

@@ -94,22 +94,26 @@ class Product extends Model
         $category_discount = $product->category->discount;
 
         if($product->discount > 0) {
-            $discount = $product->discount;
-            $discount_price = $attribute_price - ($attribute_price * ($product->discount/100));
+            $discount_percent = $product->discount;
+            $discounted_price = $attribute_price - ($attribute_price * ($product->discount/100));
+            $discount = $attribute_price - $discounted_price;
         }
         else if($category_discount > 0) {
-            $discount = $category_discount;
-            $discount_price = $attribute_price - ($attribute_price*($category_discount/100));
+            $discount_percent = $category_discount;
+            $discounted_price = $attribute_price - ($attribute_price*($category_discount/100));
+            $discount = $attribute_price - $discounted_price;
         }
         else {
+            $discount_percent = 0;
+            $discounted_price = $attribute_price;
             $discount = 0;
-            $discount_price = 0;
         }
 
         $data = [
             'attribute_price' => $attribute_price,
-            'discounted_price'=>$discount_price,
-            'discount' => $discount,
+            'discounted_price'=>$discounted_price,
+            'discount_percent' => $discount_percent,
+            'discount' => $discount
         ];
 
         return $data;
