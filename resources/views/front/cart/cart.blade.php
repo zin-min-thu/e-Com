@@ -47,59 +47,9 @@
 		  </tr>
 	</table>		
 			
-	<table class="table table-bordered">
-		<thead>
-			<tr>
-				<th>Product</th>
-				<th>Description</th>
-				<th colspan="2">Quantity/Update</th>
-				<th>Price</th>
-				<th>Discount Amount</th>
-				<th>Sub Total</th>
-			</tr>
-		</thead>
-		<tbody>
-			<?php $totals = 0; $total_discount = 0;?>
-			@foreach($productItems as $item)
-			<tr>
-				<td> <img width="60" src="{{asset('images/product_images/small/'.$item['product']['image'])}}" alt=""/></td>
-				<td colspan="2">
-					{{$item->product->name}}({{$item->product->code}})<br/>
-					Color : {{$item->product->color}}<br/>
-					Size : {{$item['size']}}
-				</td>
-				<td>
-				<div class="input-append">
-					<input class="span1" style="max-width:34px" value="{{$item->quantity}}" id="appendedInputButtons" size="16" type="text">
-					<button class="btn" type="button"><i class="icon-minus"></i></button>
-					<button class="btn" type="button"><i class="icon-plus"></i></button>
-					<button class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i></button>
-				</div>
-				</td>
-				<td>MMK {{$item->getCalculatedProduct()['discounted_price']}}</td>
-				<td>MMK {{$item->getCalculatedProduct()['discount']}}.00</td>
-				<td>MMK {{$item->quantity * $item->getCalculatedProduct()['discounted_price']}}.00</td>
-			</tr>
-			<?php
-				$totals = $totals+($item->quantity * $item->getCalculatedProduct()['discounted_price']);
-				$total_discount = $total_discount+$item->getCalculatedProduct()['discount'];
-			?>
-			@endforeach
-			
-			<tr>
-				<td colspan="6" style="text-align:right">Total Price:	</td>
-				<td> MMK {{$totals}}.00</td>
-			</tr>
-				<tr>
-				<td colspan="6" style="text-align:right">Total Discount:	</td>
-				<td> MMK {{$total_discount}}.00</td>
-			</tr>
-			<tr>
-				<td colspan="6" style="text-align:right"><strong>TOTAL (MMK) =</strong></td>
-				<td class="label label-important" style="display:block"> <strong> MMK {{$totals}}.00 </strong></td>
-			</tr>
-		</tbody>
-    </table>
+	<div id="appendCartItem">
+		@include('front.cart.cart_item')
+	</div>
 			
 	<table class="table table-bordered">
 		<tbody>
@@ -119,33 +69,6 @@
 			
 		</tbody>
 	</table>
-			
-			<!-- <table class="table table-bordered">
-			 <tr><th>ESTIMATE YOUR SHIPPING </th></tr>
-			 <tr> 
-			 <td>
-				<form class="form-horizontal">
-				  <div class="control-group">
-					<label class="control-label" for="inputCountry">Country </label>
-					<div class="controls">
-					  <input type="text" id="inputCountry" placeholder="Country">
-					</div>
-				  </div>
-				  <div class="control-group">
-					<label class="control-label" for="inputPost">Post Code/ Zipcode </label>
-					<div class="controls">
-					  <input type="text" id="inputPost" placeholder="Postcode">
-					</div>
-				  </div>
-				  <div class="control-group">
-					<div class="controls">
-					  <button type="submit" class="btn">ESTIMATE </button>
-					</div>
-				  </div>
-				</form>				  
-			  </td>
-			  </tr>
-            </table> -->		
 	<a href="products.html" class="btn btn-large"><i class="icon-arrow-left"></i> Continue Shopping </a>
 	<a href="login.html" class="btn btn-large pull-right">Next <i class="icon-arrow-right"></i></a>
 	

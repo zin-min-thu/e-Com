@@ -61,4 +61,16 @@ class CartController extends Controller
 
         return view('front.cart.cart',compact('productItems'));
     }
+
+    public function updateCartQuantity(Request $request)
+    {
+        $data = $request->all();
+        if($request->ajax()) {
+            Cart::where('id',$data['cartId'])->update(['quantity' => $data['qty']]);
+        }
+
+        $productItems = Cart::productItems();
+
+        return view('front.cart.cart_item',compact('productItems'));
+    }
 }

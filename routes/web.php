@@ -76,4 +76,5 @@ Route::namespace('Front')->group(function() {
     //Cart routes
     Route::post('add-to-cart', 'CartController@addToCart');
     Route::get('/cart', 'CartController@cart');
+    Route::post('update-cart-quantity', 'CartController@updateCartQuantity');
 });

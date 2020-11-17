@@ -161,5 +161,36 @@ $(document).ready(function() {
             }
         })
 
-    })
+    });
+
+    $(document).on("click",".updateCartQuantity", function() {
+
+        var cartId = $(this).attr('cartId');
+
+        if($(this).hasClass("qtyMinus")) {
+            var quantity = $(this).prev().val();
+            if(quantity <= 1) {
+                alert("Quanty must be at least 1 or more.");
+                return false;
+            } else {
+                new_qty = parseInt(quantity)-1;
+            }
+        }
+        if($(this).hasClass("qtyPlus")) {
+            var quantity = $(this).prev().prev().val();
+            new_qty = parseInt(quantity)+1;
+        }
+
+        $.ajax({
+            type:'post',
+            url:'/update-cart-quantity',
+            data:{cartId:cartId,qty:new_qty},
+            success:function(resp) {
+                $('#appendCartItem').html(resp);
+            }, error: function() {
+                alert("Error")
+            }
+        })
+    });
+
 })
