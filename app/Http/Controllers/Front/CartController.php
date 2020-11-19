@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Front;
 
+use View;
 use Auth;
 use Session;
 use App\Cart;
@@ -65,12 +66,37 @@ class CartController extends Controller
     public function updateCartQuantity(Request $request)
     {
         $data = $request->all();
+
         if($request->ajax()) {
-            Cart::where('id',$data['cartId'])->update(['quantity' => $data['qty']]);
+
+            $cart = Cart::where('id',$data['cartId'])->first();
+            $productAttribute = ProductAttribute::where(['product_id' => $cart->product_id,'size' => $cart->size])->first();
+
+            if($productAttribute->stock < $data['qty']) {
+                $productItems = Cart::productItems();
+                return response()->json([
+                    'status' => false,
+                    'message' => "Available stock only under $productAttribute->stock .",
+                    'view' => (String)View::make('front.cart.cart_item',compact('productItems')),
+                ]);
+            }
+
+            if($productAttribute->status == 0) {
+                $productItems = Cart::productItems();
+                return response()->json([
+                    'status' => false,
+                    'message' => "Unavailable this product size .",
+                    'view' => (String)View::make('front.cart.cart_item',compact('productItems')),
+                ]);
+            }
+
+            $cart->update(['quantity' => $data['qty']]);
+            $productItems = Cart::productItems();
+            return response()->json([
+                'status' => true,
+                'view' => (String)View::make('front.cart.cart_item',compact('productItems')),
+            ]);
         }
 
-        $productItems = Cart::productItems();
-
-        return view('front.cart.cart_item',compact('productItems'));
     }
 }

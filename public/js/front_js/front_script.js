@@ -186,7 +186,10 @@ $(document).ready(function() {
             url:'/update-cart-quantity',
             data:{cartId:cartId,qty:new_qty},
             success:function(resp) {
-                $('#appendCartItem').html(resp);
+                if(resp.status == false) {
+                    alert(resp.message)
+                }
+                $('#appendCartItem').html(resp.view);
             }, error: function() {
                 alert("Error")
             }
