@@ -7,6 +7,15 @@ $(document).ready(function() {
         }
     });
 
+    //Get cart items count
+    $.ajax({
+        type:"post",
+        url:'/get-cart-count',
+        success:function(resp) {
+            $('.get-cart-count').html(resp.count)
+        }
+    });
+
     $('#sort').on('change', function() {
         var sort = $(this).val();
         var url = $('#url').val();

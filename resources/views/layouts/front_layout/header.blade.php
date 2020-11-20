@@ -2,7 +2,6 @@
 	$sections = App\Section::sections();
 	$sections = json_decode(json_encode($sections));
 	// echo "<pre>"; print_r($sections);die;
-	$cart_count = App\Cart::productItems()->count();
 @endphp
 <div id="header">
 	<div class="container">
@@ -10,7 +9,7 @@
 			<div class="span6">Welcome!<strong> User</strong></div>
 			<div class="span6">
 				<div class="pull-right">
-					<a href="{{url('cart')}}"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ {{$cart_count}} ] Items in your cart </span> </a>
+					<a href="{{url('cart')}}"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ <span class="get-cart-count"></span> ] Items in your cart </span> </a>
 				</div>
 			</div>
 		</div>

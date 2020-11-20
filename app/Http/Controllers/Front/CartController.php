@@ -63,6 +63,14 @@ class CartController extends Controller
         return view('front.cart.cart',compact('productItems'));
     }
 
+    public function geCount()
+    {
+        return response()->json([
+            'status' => true,
+            'count' => Cart::productItems()->count(),
+        ]);
+    }
+
     public function updateCartQuantity(Request $request)
     {
         $data = $request->all();
