@@ -45,14 +45,14 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
+                <h3 class="product-count"><sup style="font-size: 20px">%</sup></h3>
 
-                <p>Bounce Rate</p>
+                <p>Products</p>
               </div>
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{url('admin/products')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -60,7 +60,7 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>44</h3>
+                <h3 class="admin-count"></h3>
 
                 <p>User Registrations</p>
               </div>
@@ -93,4 +93,22 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+@endsection
+@section('footer-script')
+<script>
+  $(document).ready(function() {
+    $.ajax({
+      type: "post",
+      url: '/admin/dashboard-meta',
+      success:function(resp) {
+        if(resp.data.status == true) {
+          $('.admin-count').html(resp.data.admin_users)
+          $('.product-count').html(resp.data.product)
+        }
+      },error:function() {
+        alert("Error")
+      }
+    })
+  })
+</script>
 @endsection
