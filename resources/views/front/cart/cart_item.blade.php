@@ -24,7 +24,7 @@
                 <input class="span1" style="max-width:34px" value="{{$item->quantity}}" id="appendedInputButtons" size="16" type="text">
                 <button class="btn updateCartQuantity qtyMinus" cartId="{{$item->id}}" type="button"><i class="icon-minus"></i></button>
                 <button class="btn updateCartQuantity qtyPlus" cartId="{{$item->id}}" type="button"><i class="icon-plus"></i></button>
-                <button class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i></button>
+                <button class="btn btn-danger deleteCartQuantity" cartId="{{$item->id}}" type="button"><i class="icon-remove icon-white"></i></button>
             </div>
             </td>
             <td>MMK {{$item->getCalculatedProduct()['discounted_price']}}</td>

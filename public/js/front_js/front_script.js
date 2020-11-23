@@ -205,4 +205,21 @@ $(document).ready(function() {
         })
     });
 
+    $(document).on("click", ".deleteCartQuantity",function() {
+        var cartId = $(this).attr('cartId');
+        var result = confirm('Are you sure you want to delete cart item?');
+        if(result) {
+            $.ajax({
+                type:'post',
+                url:'/delete-cart-quantity',
+                data:{cartId:cartId},
+                success:function(resp) {
+                    $('#appendCartItem').html(resp.view);
+                },error:function() {
+                    alert('Error')
+                }
+            })
+        }
+    });
+
 })

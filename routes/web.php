@@ -6,6 +6,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+// Backend routes
 Route::prefix('admin')->namespace('Admin')->group(function() {
     Route::match(['get','post'],'/', 'AdminController@login');
     Route::group(['middleware' => 'admin'], function() {
@@ -61,6 +62,7 @@ Route::prefix('admin')->namespace('Admin')->group(function() {
     });
 });
 
+// Frontend routes
 Route::namespace('Front')->group(function() {
 
     Route::get('/', 'IndexController@index');
@@ -80,4 +82,5 @@ Route::namespace('Front')->group(function() {
     Route::get('/cart', 'CartController@cart');
     Route::post('update-cart-quantity', 'CartController@updateCartQuantity');
     Route::post('/get-cart-count', 'CartController@geCount');
+    Route::post('/delete-cart-quantity', 'CartController@deleteCartQuantity');
 });

@@ -107,4 +107,17 @@ class CartController extends Controller
         }
 
     }
+
+    public function deleteCartQuantity(Request $request)
+    {
+        $data = $request->all();
+
+        if($request->ajax()) {
+            Cart::where('id',$data['cartId'])->delete();
+            $productItems = Cart::productItems();
+            return response()->json([
+                'view' => (String)View::make('front.cart.cart_item', compact('productItems'))
+            ]);
+        }
+    }
 }
