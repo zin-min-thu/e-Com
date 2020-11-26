@@ -70,7 +70,7 @@
                                       <td>{{$category->section->name}}</td>
                                       <td>{{$category->url}}</td>
                                       <td>
-                                          @include('admin.category._update_status')
+                                          @include('admin.categories._update_status')
                                       </td>
                                       <td>
                                         <a href="{{url('admin/categories/'.$category->id).'/edit'}}">Edit</a>

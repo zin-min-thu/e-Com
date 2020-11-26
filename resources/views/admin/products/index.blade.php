@@ -74,7 +74,7 @@
                                       <td>{{$product->category->name}}</td>
                                       <td>{{$product->section->name}}</td>
                                       <td>
-                                          @include('admin.product._update_status')
+                                          @include('admin.products._update_status')
                                       </td>
                                       <td>
                                         <a title="Edit Product" href="{{url('admin/products/'.$product->id).'/edit'}}" class="btn btn-info btn-sm">

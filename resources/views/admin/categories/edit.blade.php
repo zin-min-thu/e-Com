@@ -41,8 +41,9 @@
     <section class="content">
         <div class="container-fluid">
         <!-- SELECT2 EXAMPLE -->
-            <form action="{{url('admin/categories')}}" method="post" enctype="multipart/form-data">
+            <form action="{{url('admin/categories/'.$category->id)}}" method="post" enctype="multipart/form-data">
                 @csrf
+                @method('patch')
                 <div class="card card-default">
                     <div class="card-header">
                     <h3 class="card-title">Add New Cagegory</h3>
@@ -59,11 +60,12 @@
                                     class="form-control"
                                     id="name"
                                     placeholder="Enter category name"
+                                    value="{{old('name') ? old('name') : $category->name}}"
                                 >
                             </div>
                             <!-- /.form-group -->
                             <div id="appendCagegoryLevel">
-                              @include('admin.category._append_level')
+                              @include('admin.categories._append_level')
                             </div>
                         <!-- /.form-group -->
                         </div>
@@ -74,7 +76,9 @@
                                 <select name="section_id" id="section-id" class="form-control select2" style="width: 100%;">
                                 <option selected="selected" disabled>select</option>
                                 @foreach($sections as $section)
-                                <option value="{{$section->id}}">{{$section->name}}</option>
+                                <option value="{{$section->id}}" {{$section->id == $category->section_id ? 'Selected' : ''}}>
+                                    {{$section->name}}
+                                </option>
                                 @endforeach
                                 </select>
                             </div>
@@ -90,6 +94,14 @@
                                         <span class="input-group-text" id="">Upload</span>
                                     </div>
                                 </div>
+                                @if(!empty($category->image))
+                                <a target="_blank" href="{{url('images/category_images/'.$category->image)}}" title="Click to view image">
+                                    <img src="{{url('images/category_images/'.$category->image)}}" style="width: 100px; height:80px;">
+                                </a>
+                                <a href="javascript:void(0)" record="category-image" recordId="{{$category->id}}" class="confirmDelete text-red">Delete Image</a>
+                                @else
+                                <span class="text-red">You need to upload category image.</span>
+                                @endif
                             </div>
                             <!-- /.form-group -->
                         </div>
@@ -106,6 +118,7 @@
                                     class="form-control"
                                     id="discount"
                                     placeholder="Enter category discount"
+                                    value="{{old('discount') ? old('discount') : $category->discount}}"
                                 >
                             </div>
                         <!-- /.form-group -->
@@ -120,6 +133,7 @@
                                     class="form-control"
                                     id="url"
                                     placeholder="Enter category url"
+                                    value="{{old('url') ? old('url') : $category->url}}"
                                 >
                             </div>
                         <!-- /.form-group -->
@@ -131,7 +145,7 @@
                         <div class="col-12 col-sm-6">
                             <div class="form-group">
                                 <label>Cagegory Description</label>
-                                <textarea name="description" class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                                <textarea name="description" class="form-control" placeholder="Enter ...">{{old('description') ? old('description') : $category->description}}</textarea>
                             </div>
                         <!-- /.form-group -->
                         </div>
@@ -139,7 +153,7 @@
                         <div class="col-12 col-sm-6">
                             <div class="form-group">
                                 <label>Meta Title</label>
-                                <textarea name="meta_title" class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                                <textarea name="meta_title" class="form-control" placeholder="Enter ...">{{old('meta_title') ? old('meta_title') : $category->meta_title}}</textarea>
                             </div>
                         <!-- /.form-group -->
                         </div>
@@ -150,7 +164,7 @@
                         <div class="col-12 col-sm-6">
                             <div class="form-group">
                                 <label>Meta Description</label>
-                                <textarea name="meta_description" class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                                <textarea name="meta_description" class="form-control" placeholder="Enter ...">{{old('meta_description') ? old('meta_description') : $category->meta_description}}</textarea>
                             </div>
                         <!-- /.form-group -->
                         </div>
@@ -158,7 +172,7 @@
                         <div class="col-12 col-sm-6">
                             <div class="form-group">
                                 <label>Meta Keywords</label>
-                                <textarea name="meta_keywords" class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                                <textarea name="meta_keywords" class="form-control" placeholder="Enter ...">{{old('meta_keywords') ? old('meta_keywords') : $category->meta_keywords}}</textarea>
                             </div>
                         <!-- /.form-group -->
                         </div>
@@ -168,7 +182,7 @@
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
                     </div>
                 </div>
             </form>

@@ -54,7 +54,7 @@
                                     <td>{{$section->getKey()}}</td>
                                     <td>{{$section->name}}</td>
                                     <td>
-                                        @include('admin.section._update_status')
+                                        @include('admin.sections._update_status')
                                     </td>
                                 </tr>
                                 @endforeach

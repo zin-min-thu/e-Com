@@ -15,13 +15,13 @@ class CategoryController extends Controller
     {
         $categories = Category::with(['section','parent_category'])->get();
 
-        return view('admin.category.index',compact('categories'));
+        return view('admin.categories.index',compact('categories'));
     }
 
     public function create()
     {
         $sections = Section::all();
-        return view('admin.category.create', compact('sections'));
+        return view('admin.categories.create', compact('sections'));
     }
 
     public function store(Request $request)
@@ -72,7 +72,7 @@ class CategoryController extends Controller
                         ->where(['parent_id' => 0,'section_id' =>$category->section_id,'status' => 1])
                         ->get();
 
-        return view('admin.category.edit', compact('getCategories','sections','category'));
+        return view('admin.categories.edit', compact('getCategories','sections','category'));
 
     }
 
@@ -159,7 +159,7 @@ class CategoryController extends Controller
                             ->where(['section_id' => $data['section_id'], 'parent_id' => 0, 'status' => 1])
                             ->get();
 
-            return view('admin.category._append_level', compact('getCategories'));
+            return view('admin.categories._append_level', compact('getCategories'));
         }
     }
 }

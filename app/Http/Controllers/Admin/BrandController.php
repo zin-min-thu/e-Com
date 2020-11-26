@@ -12,12 +12,12 @@ class BrandController extends Controller
     public function index()
     {
         $brands = Brand::latest()->get();
-        return view('admin.brand.index', compact('brands'));
+        return view('admin.brands.index', compact('brands'));
     }
 
     public function create()
     {
-        return view('admin.brand.create');
+        return view('admin.brands.create');
     }
 
     public function store(Request $request)
@@ -33,7 +33,7 @@ class BrandController extends Controller
 
     public function edit(Brand $brand)
     {
-        return view('admin.brand.edit', compact('brand'));
+        return view('admin.brands.edit', compact('brand'));
     }
 
     public function update(Request $request, Brand $brand)

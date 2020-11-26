@@ -25,7 +25,7 @@ class ProductController extends Controller
                 $query->select('id','name');
             }])->get();
 
-        return view('admin.product.index', compact('products'));
+        return view('admin.products.index', compact('products'));
     }
 
     public function create()
@@ -37,7 +37,7 @@ class ProductController extends Controller
 
         $brands = Brand::where('status', 1)->get();
 
-        return view('admin.product.create', compact('data', 'categories', 'brands'));
+        return view('admin.products.create', compact('data', 'categories', 'brands'));
     }
 
     public function store(Request $request)
@@ -60,7 +60,7 @@ class ProductController extends Controller
 
         $brands = Brand::where('status', 1)->get();
 
-        return view('admin.product.edit', compact('product', 'data','categories', 'brands'));
+        return view('admin.products.edit', compact('product', 'data','categories', 'brands'));
     }
 
     public function update(Request $request, Product $product)
@@ -255,7 +255,7 @@ class ProductController extends Controller
             return redirect()->back();
         }
 
-        return view('admin.product.add_product_attribute', compact('product'));
+        return view('admin.products.add_product_attribute', compact('product'));
     }
 
     public function updateProductAttribute(Request $request)

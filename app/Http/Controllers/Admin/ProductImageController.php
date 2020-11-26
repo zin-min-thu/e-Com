@@ -47,7 +47,7 @@ class ProductImageController extends Controller
                 return redirect()->back();
             }
         }
-        return view('admin.product.add_images', compact('product'));
+        return view('admin.products.add_images', compact('product'));
     }
 
     public function updateStatus(Request $request)

@@ -13,14 +13,14 @@ class BunnerController extends Controller
 {
     public function index()
     {
-        return view('admin.bunner.index', [
+        return view('admin.bunners.index', [
             'bunners' => Bunner::all(),
         ]);
     }
 
     public function create()
     {
-        return view('admin.bunner.create');
+        return view('admin.bunners.create');
     }
 
     public function store(Request $request)
@@ -52,7 +52,7 @@ class BunnerController extends Controller
 
     public function edit(Bunner $bunner)
     {
-        return view('admin.bunner.edit', compact('bunner'));
+        return view('admin.bunners.edit', compact('bunner'));
     }
 
     public function update(Request $request, Bunner $bunner)

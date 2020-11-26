@@ -12,7 +12,7 @@ class SectionController extends Controller
     public function index()
     {
         $sections = Section::latest()->get();
-        return view('admin.section.index', compact('sections'));
+        return view('admin.sections.index', compact('sections'));
     }
 
     public function updateSectionStatus(Request $request)
