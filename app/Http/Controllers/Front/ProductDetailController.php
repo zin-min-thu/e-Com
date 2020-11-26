@@ -24,7 +24,7 @@ class ProductDetailController extends Controller
                                 ->limit(3)
                                 ->get()->toArray();
 
-        return view('front.product.detail', compact('productDetail','total_stock','relatedProducts'));
+        return view('front.products.detail', compact('productDetail','total_stock','relatedProducts'));
     }
 
     public function changePrice(Request $request)

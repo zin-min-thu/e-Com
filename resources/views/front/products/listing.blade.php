@@ -28,7 +28,7 @@
 
     <br class="clr"/>
     <div class="tab-content filter_products">
-        @include('front.product._products_listing')
+        @include('front.products._products_listing')
     </div>
     <a href="compair.html" class="btn btn-large pull-right">Compair Product</a>
     <div class="pagination">

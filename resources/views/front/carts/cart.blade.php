@@ -48,7 +48,7 @@
 	</table>		
 			
 	<div id="appendCartItem">
-		@include('front.cart.cart_item')
+		@include('front.carts.cart_item')
 	</div>
 			
 	<table class="table table-bordered">

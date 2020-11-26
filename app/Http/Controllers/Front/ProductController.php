@@ -80,7 +80,7 @@ class ProductController extends Controller
 
                 $productLists = $productLists->paginate(6);
 
-                return view('front.product._products_listing', compact('categoryDetails','productLists','url'));
+                return view('front.products._products_listing', compact('categoryDetails','productLists','url'));
 
             } else {
                 abort(404);
@@ -106,7 +106,7 @@ class ProductController extends Controller
             $listing = "listing";
             $data = Product::collectFilterProducts();
 
-            return view('front.product.listing', compact('categoryDetails','productLists','url','data','listing'));
+            return view('front.products.listing', compact('categoryDetails','productLists','url','data','listing'));
         }
 
     }

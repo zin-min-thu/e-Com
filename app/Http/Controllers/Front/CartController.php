@@ -60,7 +60,7 @@ class CartController extends Controller
     {
         $productItems = Cart::productItems();
 
-        return view('front.cart.cart',compact('productItems'));
+        return view('front.carts.cart',compact('productItems'));
     }
 
     public function geCount()
@@ -85,7 +85,7 @@ class CartController extends Controller
                 return response()->json([
                     'status' => false,
                     'message' => "Available stock only under $productAttribute->stock .",
-                    'view' => (String)View::make('front.cart.cart_item',compact('productItems')),
+                    'view' => (String)View::make('front.carts.cart_item',compact('productItems')),
                 ]);
             }
 
@@ -94,7 +94,7 @@ class CartController extends Controller
                 return response()->json([
                     'status' => false,
                     'message' => "Unavailable this product size .",
-                    'view' => (String)View::make('front.cart.cart_item',compact('productItems')),
+                    'view' => (String)View::make('front.carts.cart_item',compact('productItems')),
                 ]);
             }
 
@@ -102,7 +102,7 @@ class CartController extends Controller
             $productItems = Cart::productItems();
             return response()->json([
                 'status' => true,
-                'view' => (String)View::make('front.cart.cart_item',compact('productItems')),
+                'view' => (String)View::make('front.carts.cart_item',compact('productItems')),
             ]);
         }
 
@@ -116,7 +116,7 @@ class CartController extends Controller
             Cart::where('id',$data['cartId'])->delete();
             $productItems = Cart::productItems();
             return response()->json([
-                'view' => (String)View::make('front.cart.cart_item', compact('productItems'))
+                'view' => (String)View::make('front.carts.cart_item', compact('productItems'))
             ]);
         }
     }
