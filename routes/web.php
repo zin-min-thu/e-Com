@@ -83,4 +83,10 @@ Route::namespace('Front')->group(function() {
     Route::post('update-cart-quantity', 'CartController@updateCartQuantity');
     Route::post('/get-cart-count', 'CartController@geCount');
     Route::post('/delete-cart-quantity', 'CartController@deleteCartQuantity');
+
+    //User routes
+    Route::get('login-register', 'UserController@loginRegister')->name('front.login');
+    Route::post('register','UserController@register');
+    Route::post('login', 'UserController@login');
+
 });
