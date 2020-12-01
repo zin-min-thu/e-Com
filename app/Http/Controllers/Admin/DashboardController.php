@@ -19,4 +19,9 @@ class DashboardController extends Controller
             'cart' => Cart::productItems()->count(),
         ]],200);
     }
+
+    public function dashboard()
+    {
+        return view('admin.dashboard');
+    }
 }

@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 use App\Http\Controllers\Admin\ProductController;
 use App\ProductAttribute;
@@ -20,5 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ProductAttribute::class);
         $this->call(BrandsTableSeeder::class);
         $this->call(BunnersTableSeeder::class);
+        $this->call(PermissionTableSeeder::class);
+        $this->call(AdminTableSeeder::class);
     }
 }

@@ -2,23 +2,30 @@
 use Carbon\Traits\Rounding;
 use App\Category;
 
-Auth::routes();
+// Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
 // Backend routes
 Route::prefix('admin')->namespace('Admin')->group(function() {
-    Route::match(['get','post'],'/', 'AdminController@login');
+    Route::match(['get','post'],'/', 'AdminLoginController@login');
     Route::group(['middleware' => 'admin'], function() {
         //Get dashboard meta
         Route::post('/dashboard-meta','DashboardController@index');
-        // Admin routes
-        Route::get('dashboard', 'AdminController@dashboard');
-        Route::get('settings', 'AdminController@setting');
-        Route::get('logout', 'AdminController@logout');
-        Route::post('check-current-password', 'AdminController@checkCurrentPassword');
-        Route::post('update-current-password', 'AdminController@updateCurrentPassword');
-        Route::match(['get','post'],'update-detail', 'AdminController@updateDetail');
+        Route::get('dashboard', 'DashboardController@dashboard');
+        
+        // Admin login/update-password routes
+        Route::get('update-password', 'AdminLoginController@updatePassword');
+        Route::get('logout', 'AdminLoginController@logout');
+        Route::post('check-current-password', 'AdminLoginController@checkCurrentPassword');
+        Route::post('update-current-password', 'AdminLoginController@updateCurrentPassword');
+        Route::match(['get','post'],'update-detail', 'AdminLoginController@updateDetail');
+
+        //Settings admin/role routes
+        Route::resource('admins','AdminController',['except' => 'destroy']);
+        Route::get('delete-admin/{admin}','AdminController@deleteAdmin');
+        Route::resource('roles','RoleController',['except' => 'destroy']);
+        Route::get('delete-role/{role}', 'RoleController@deleteRole');
 
         //Section routes
         Route::resource('sections', 'SectionController', ['only' => ['index']]);
