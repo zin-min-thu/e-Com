@@ -38,7 +38,9 @@
                         <div class="card-header">
                           <h3 class="card-title">Products</h3>
                           <div class="text-right">
+                            @if(auth()->guard('admin')->user()->can('product-create'))
                             <a href="{{url('admin/products/create')}}" class="btn btn-primary"><i class="fa fa-plus"></i> AddCategory</a>
+                            @endif
                           </div>
                         </div>
                         <!-- /.card-header -->

@@ -2,119 +2,91 @@
 
 namespace App\Http\Controllers\Admin;
 
+use DB;
 use Session;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use App\Admin;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
-    public function dashboard()
+    public function index()
     {
-        return view('admin.dashboard');
+        $admins = Admin::get();
+
+        return view('admin.settings.admins.index',compact('admins'));
     }
 
-    public function setting()
+    public function create()
     {
-        $admin = Auth::guard('admin')->user();
-        return view('admin.settings', compact('admin'));
+        $roles = Role::all();
+
+        return view('admin.settings.admins.create',compact('roles'));
     }
 
-    public function login(Request $request)
+    public function store(Request $request)
     {
-        if($request->isMethod('post')) {
-
-            $request->validate([
-                'email' => 'required|email|max:255',
-                'password' => 'required'
-            ]);
-
-            $data = $request->all();
-            if(Auth::guard('admin')->attempt(['email' => $data['email'], 'password' => $data['password']])) {
-                return redirect('/admin/dashboard');
-            } else {
-                session()->flash('error_message','Invalid email or passowrd.');
-                return redirect()->back();
-            }
-        }
-        return view('admin.login');
-    }
-
-    public function checkCurrentPassword(Request $request)
-    {
-        $data = $request->all();
-        if(Hash::check($data['current_password'], Auth::guard('admin')->user()->password)) {
-            return "true";
-        } else {
-            return "false";
-        }
-    }
-
-    public function updateCurrentPassword(Request $request)
-    {
-        $data = $request->all();
-        if(Hash::check($data['current_password'], Auth::guard('admin')->user()->password)) {
-            if($data['new_password'] == $data['confirm_password']) {
-                Admin::where('id', Auth::guard('admin')->user()->id)->update([
-                    'password' => bcrypt($data['new_password'])
-                ]);
-                session::flash('success_message', 'Password has been updated.');
-            } else {
-                session::flash('error_message', 'New password and confirm password not match.');
-            }
-        } else {
-            session::flash('error_message', 'Current password is incorrect.');
-        }
-        return redirect()->back();
-    }
-
-    public function updateDetail(Request $request)
-    {
-        $admin = Admin::where('id', Auth::guard('admin')->user()->id)->first();
-
-        if($request->isMethod('post')) {
-            $request->validate([
-                'name' => 'required',
-                'mobile' => 'required|numeric',
-                'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            ]);
-
-            $data = $request->all();
-
-            if($request->hasFile('image')) {
-                $image = $request->file('image');
-                if($image->isValid()) {
-                    //upload image and set image name
-                    $date = Carbon::now()->format('Y-m-d-H:m:s');
-                    $imageName = $date.".".$image->extension();
-                    $path = '/images/admin_images/admin_photos';
-                    $image->move(public_path($path), $imageName);
-                }
-            }else if(!empty($data['current_admin_image'])) {
-                $imageName = $data['current_admin_image'];
-            } else {
-                $imageName = "";
-            }
-
-            $admin->update([
-                'name' => $request->name,
-                'mobile' => $request->mobile,
-                'image' => $imageName
-            ]);
-            session::flash('success_message', 'Admin detail updated successful.');
-        }
-
-        return view('admin.update_detail', [
-            'admin' => $admin
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:admins,email',
+            'mobile' => 'required|unique:admins',
+            'new_password' => 'required|same:confirm_password',
+            'role' => 'required'
         ]);
-    }
-    public function logout()
-    {
-        Auth::guard('admin')->logout();
 
-        return redirect('admin');
+        $input = $request->all();
+
+        $input['password'] = Hash::make($input['new_password']);
+        
+        $admin = Admin::create($input);
+
+        $admin->assignRole($input['role']);
+
+        return redirect()->route('admins.index');
+    }
+
+    public function edit(Admin $admin)
+    {
+        $adminRole = $admin->roles->pluck('name','name')->all();
+
+        $roles = Role::all();
+        
+        return view('admin.settings.admins.edit', compact('admin','adminRole','roles'));
+    }
+
+    public function update(Request $request, Admin $admin)
+    {
+        $request->validate([
+            'name' => 'required',
+            'mobile' => 'required',
+            'role' => 'required',
+        ]);
+
+        $admin->update($request->all());
+
+        DB::table('model_has_roles')->where('model_id',$admin->id)->delete();
+
+        $admin->assignRole($request->input('role'));
+
+        return redirect()->route('admins.index')->with('success_message','Admin updated successfully.');
+    }
+
+    public function deleteAdmin(Admin $admin)
+    {
+        $file_path = "images/admin_images/admin_photos/";
+
+        if(file_exists($file_path.$admin->image) && !empty($admin->image)) {
+            unlink($file_path.$admin->image);
+        }
+
+        $admin->delete();
+
+        session::flash('success_message', 'Admin deleted successufly.');
+
+        return redirect()->back();
     }
 }

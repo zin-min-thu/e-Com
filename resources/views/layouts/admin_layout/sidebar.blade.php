@@ -32,9 +32,9 @@
               </p>
             </a>
           </li>
-          <li class="nav-item has-treeview {{request()->is(['admin/settings','admin/update-detail']) ? 'menu-open' : ''}}">
-            <a href="#" class="nav-link {{request()->is(['admin/settings','admin/update-detail']) ? 'active' : ''}}">
-            <i class="nav-icon fas fa-th"></i>
+          <li class="nav-item has-treeview {{request()->is(['admin/update-password','admin/update-detail']) ? 'menu-open' : ''}}">
+            <a href="#" class="nav-link {{request()->is(['admin/update-password','admin/update-detail']) ? 'active' : ''}}">
+            <i class="nav-icon fa fa-user-circle fa-5x"></i>
               <p>
                 Admin Settings
                 <i class="fas fa-angle-left right"></i>
@@ -42,7 +42,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{url('admin/settings')}}" class="nav-link {{request()->is('admin/settings') ? 'active' : ''}}">
+                <a href="{{url('admin/update-password')}}" class="nav-link {{request()->is('admin/update-password') ? 'active' : ''}}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Update Password</p>
                 </a>
@@ -107,8 +107,31 @@
               </li>
               <li class="nav-item">
                 <a href="{{url('admin/bunners')}}" class="nav-link {{request()->is(['admin/bunners','admin/bunners/*']) ? 'active' : ''}}">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="far fa-circle  nav-icon"></i>
                   <p>Bunners</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview {{request()->is(['admin/admins','admin/admins/*','admin/roles','admin/roles/*']) ? 'menu-open' : ''}}">
+            <a href="#" class="nav-link {{request()->is(['admin/admins','admin/admins/*','admin/roles','admin/roles/*']) ? 'active' : ''}}">
+            <i class="nav-icon fa fa-cog"></i>
+              <p>
+                Settings
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{url('admin/admins')}}" class="nav-link {{request()->is(['admin/admins','admin/admins/*']) ? 'active' : ''}}">
+                  <i class="far fa-user nav-icon"></i>
+                  <p>Admin Users</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{url('admin/roles')}}" class="nav-link {{request()->is(['admin/roles','admin/roles/*']) ? 'active' : ''}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Roles</p>
                 </a>
               </li>
             </ul>
