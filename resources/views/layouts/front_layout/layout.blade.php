@@ -14,6 +14,7 @@
 	<!-- Front style responsive -->
 	<link href="{{ url ('css/front_css/front-responsive.min.css')}}" rel="stylesheet"/>
 	<link href="{{ url ('css/front_css/font-awesome.css')}}" rel="stylesheet" type="text/css">
+	<link href="{{ url ('css/front_css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
 	<!-- Google-code-prettify -->
 	<link href="{{ url ('js/front_js/gfront_css/oogle-code-prettify/prettify.css')}}" rel="stylesheet"/>
 	<!-- fav and touch icons -->

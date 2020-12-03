@@ -95,5 +95,6 @@ Route::namespace('Front')->group(function() {
     Route::get('login-register', 'UserController@loginRegister')->name('front.login');
     Route::post('register','UserController@register');
     Route::post('login', 'UserController@login');
+    Route::get('logout', 'UserController@logout');
 
 });

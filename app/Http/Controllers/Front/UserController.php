@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Http\Controllers\Controller;
+use Auth;
+use Hash;
+use Session;
+use App\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
@@ -14,11 +18,43 @@ class UserController extends Controller
 
     public function register(Request $request)
     {
-        return "!Currently working on this feature.";
+        $request->validate([
+            'name' => 'required',
+            'mobile' => 'required',
+            'email' => 'required|unique:users,email',
+            'password' => 'required|min:4',
+        ]);
+
+        $input = $request->all();
+        $input['password'] = Hash::make($input['password']);
+
+        User::create($input);
+
+        session::flash('success_message', 'User created successufly.');
+
+        return redirect()->back();
     }
 
     public function login(Request $request)
     {
-        return "!Currently working on this feature.";
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required'
+        ]);
+
+        $credentials = $request->only('email','password');
+        if(Auth::attempt($credentials)) {
+            return redirect()->back()->with('success_message', 'User login successfully.');
+        } else {
+            session::flash('error_message','Invalid email or password please try again!.');
+            return redirect()->back();
+        }
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+
+        return redirect()->back()->with('success_message', 'User logout successfully.');
     }
 }

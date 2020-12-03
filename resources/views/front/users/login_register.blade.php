@@ -8,36 +8,36 @@
     </ul>
     <h3> Login</h3>	
     <hr class="soft"/>
-	
+	@include('validation_message')
     <div class="row">
         <div class="span4">
             <div class="well">
             <h5>CREATE YOUR ACCOUNT</h5><br/>
-            Enter your e-mail address to create an account.<br/><br/>
+            Please fill below information to create an account.<br/><br/>
             <form action="{{ url('register')}}" method="post">
                 @csrf
                 <div class="control-group">
                     <label class="control-label" for="name">Name</label>
                     <div class="controls">
-                        <input class="span3"  type="text" name="name" id="name" placeholder="Name">
+                        <input class="span3"  type="text" name="name" id="name" value="{{old('name')}}" placeholder="Name">
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label" for="mobile">Mobile</label>
                     <div class="controls">
-                        <input class="span3"  type="text" name="mobile" id="mobile" placeholder="Mobile">
+                        <input class="span3"  type="text" name="mobile" id="mobile" value="{{old('mobile')}}" placeholder="Mobile">
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label" for="email">E-mail</label>
                     <div class="controls">
-                        <input class="span3"  type="text" name="email" id="email" placeholder="Email">
+                        <input class="span3"  type="text" name="email" id="email" value="{{old('email')}}" placeholder="Email">
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label" for="password">Password</label>
                     <div class="controls">
-                        <input class="span3"  type="password" name="password" id="password" placeholder="Password">
+                        <input class="span3"  type="password" name="password" id="password" value="{{old('password')}}" placeholder="Password">
                     </div>
                 </div>
                 <div class="controls">
