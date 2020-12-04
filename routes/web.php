@@ -96,5 +96,6 @@ Route::namespace('Front')->group(function() {
     Route::post('register','UserController@register');
     Route::post('login', 'UserController@login');
     Route::get('logout', 'UserController@logout');
+    Route::match(['get','post'],'/check-email', 'UserController@checkEmail');
 
 });
