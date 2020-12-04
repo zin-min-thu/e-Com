@@ -50,7 +50,7 @@
         <div class="span4">
             <div class="well">
             <h5>ALREADY REGISTERED ?</h5>
-            <form action="{{ url('login') }}" method="POST">
+            <form id="loginForm" action="{{ url('login') }}" method="POST">
                 @csrf
                 <div class="control-group">
                     <label class="control-label" for="email">Email</label>

@@ -44,7 +44,7 @@ class UserController extends Controller
 
         $credentials = $request->only('email','password');
         if(Auth::attempt($credentials)) {
-            return redirect()->back()->with('success_message', 'User login successfully.');
+            return redirect('cart')->with('success_message', 'User login successfully.');
         } else {
             session::flash('error_message','Invalid email or password please try again!.');
             return redirect()->back();
@@ -66,6 +66,6 @@ class UserController extends Controller
     {
         Auth::logout();
 
-        return redirect()->back()->with('success_message', 'User logout successfully.');
+        return redirect('login-register')->with('success_message', 'User logout successfully.');
     }
 }

@@ -256,7 +256,31 @@ $(document).ready(function() {
                 remote: "Email already exists"
             },
             password: {
-                required: "Please provide a password",
+                required: "Please choose a password",
+                minlength: "Your password must be at least 5 characters long"
+            },
+        }
+    });
+
+    // validate login form on keyup and submit
+    $("#loginForm").validate({
+        rules: {
+            email: {
+                required: true,
+                email: true,
+            },
+            password: {
+                required: true,
+                minlength: 5
+            },
+        },
+        messages: {
+            email: {
+                required: "Please enter your email",
+                email: "Please enter your valid email",
+            },
+            password: {
+                required: "Please enter a password",
                 minlength: "Your password must be at least 5 characters long"
             },
         }

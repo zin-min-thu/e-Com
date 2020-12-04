@@ -53,7 +53,7 @@
 		            <li><a href="#">Contact</a></li>
 		            <li class="divider-vertical"></li>
 					@if(Auth::check())
-					<li><a href="{{ url('cart')}}"> <i class="fa fa-user" aria-hidden="true"></i> Account |</a></li>
+					<li><a href="{{ url('cart')}}"> <i class="fa fa-user" aria-hidden="true"></i> {{Auth::user()->name}} |</a></li>
 					<li><a href="{{ url('logout')}}"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a></li>
 					@else
 		            <li><a href="{{ route('front.login')}}">Login/Register</a></li>
