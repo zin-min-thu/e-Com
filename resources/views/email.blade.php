@@ -6,7 +6,7 @@
         <li><a href="index.html">Home</a> <span class="divider">/</span></li>
         <li class="active">Login</li>
     </ul>
-    <h3> Login</h3>
+    <h3> Login</h3>	
     <hr class="soft"/>
     @include('validation_message')
     <div class="row">
@@ -24,14 +24,14 @@
                     <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail') }}</label>
 
                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="Enter your email" required autocomplete="email" autofocus>
-                    <p>
+
                     @error('email')
-                        <span style="color:red;" role="alert">
+                        <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
-                    </p>
                 </div>
+
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">
                         {{ __('Send Password Reset Link') }}
@@ -42,6 +42,7 @@
         </div>
         <div class="span1"> &nbsp;</div>
         </div>
-    </div>
+    </div>	
+	
 </div>
 @endsection

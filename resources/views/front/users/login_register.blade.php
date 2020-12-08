@@ -66,7 +66,7 @@
                 </div>
                 <div class="control-group">
                     <div class="controls">
-                    <button type="submit" class="btn btn-primary">Sign in</button> <a href="forgetpass.html">Forget password?</a>
+                    <button type="submit" class="btn btn-primary">Sign in</button> <a href="{{route('password.request')}}">Forget password?</a>
                     </div>
                 </div>
             </form>

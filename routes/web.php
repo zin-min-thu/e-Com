@@ -4,8 +4,6 @@ use App\Category;
 
 // Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
 // Backend routes
 Route::prefix('admin')->namespace('Admin')->group(function() {
     Route::match(['get','post'],'/', 'AdminLoginController@login');
@@ -98,4 +96,11 @@ Route::namespace('Front')->group(function() {
     Route::get('logout', 'UserController@logout');
     Route::match(['get','post'],'/check-email', 'UserController@checkEmail');
 
+});
+//Front Password reset routes
+Route::namespace('Auth')->group(function() {
+    Route::get('password/reset', 'ForgotPasswordController@showLinkRequestForm')->name('password.request');
+    Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+    Route::get('password/reset/{token}', 'ResetPasswordController@showResetForm')->name('password.reset');
+    Route::post('password/reset', 'ResetPasswordController@reset')->name('password.update');
 });

@@ -17,33 +17,51 @@
 	@endif
 	<table class="table table-bordered">
 		<tr><th> I AM ALREADY REGISTERED  </th></tr>
-		 <tr> 
-		 <td>
-			<form class="form-horizontal">
+		 <tr>
+			@if(Auth::check())
+			<td>
 				<div class="control-group">
-				  <label class="control-label" for="inputUsername">Username</label>
-				  <div class="controls">
-					<input type="text" id="inputUsername" placeholder="Username">
-				  </div>
+					<label class="control-label" for="name">Name</label>
+					<div class="controls">
+						<input type="text" value="{{auth()->user()->name}}" readonly>
+					</div>
 				</div>
 				<div class="control-group">
-				  <label class="control-label" for="inputPassword1">Password</label>
-				  <div class="controls">
-					<input type="password" id="inputPassword1" placeholder="Password">
-				  </div>
-				</div>
-				<div class="control-group">
-				  <div class="controls">
-					<button type="submit" class="btn">Sign in</button> OR <a href="register.html" class="btn">Register Now!</a>
-				  </div>
+					<label class="control-label">Email</label>
+					<div class="controls">
+						<input type="text" value="{{auth()->user()->email}}" readonly>
+					</div>
 				</div>
 				<div class="control-group">
 					<div class="controls">
-					  <a href="forgetpass.html" style="text-decoration:underline">Forgot password ?</a>
+						<a href="{{route('password.request')}}" style="">Forgot password ?</a>
 					</div>
 				</div>
-			</form>
-		  </td>
+			</td>
+			@else
+			<td>
+				<form class="form-horizontal" id="loginForm" action="{{ url('login') }}" method="POST">
+					@csrf
+					<div class="control-group">
+						<label class="control-label" for="email">Email</label>
+						<div class="controls">
+							<input type="text" name="email" id="email" placeholder="Email">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="password">Password</label>
+						<div class="controls">
+							<input type="password" name="password" id="password" placeholder="Password">
+						</div>
+					</div>
+					<div class="control-group">
+						<div class="controls">
+							<button type="submit" class="btn btn-primary">Sign in</button> OR <a href="{{route('front.login')}}" class="btn">Register Now!</a>
+						</div>
+					</div>
+				</form>
+			</td>
+			@endif
 		  </tr>
 	</table>		
 			
@@ -53,20 +71,19 @@
 			
 	<table class="table table-bordered">
 		<tbody>
-				<tr>
+			<tr>
 				<td> 
-			<form class="form-horizontal">
-			<div class="control-group">
-			<label class="control-label"><strong> VOUCHERS CODE: </strong> </label>
-			<div class="controls">
-			<input type="text" class="input-medium" placeholder="CODE">
-			<button type="submit" class="btn"> ADD </button>
-			</div>
-			</div>
-			</form>
-			</td>
+					<form class="form-horizontal">
+						<div class="control-group">
+							<label class="control-label"><strong> VOUCHERS CODE: </strong> </label>
+							<div class="controls">
+								<input type="text" class="input-medium" placeholder="CODE">
+								<button type="submit" class="btn"> ADD </button>
+							</div>
+						</div>
+					</form>
+				</td>
 			</tr>
-			
 		</tbody>
 	</table>
 	<a href="products.html" class="btn btn-large"><i class="icon-arrow-left"></i> Continue Shopping </a>
