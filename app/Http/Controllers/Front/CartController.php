@@ -45,8 +45,15 @@ class CartController extends Controller
                     return redirect()->back();
                 }
 
+                if(Auth::check()) {
+                    $user_id = Auth::user()->id;
+                } else {
+                    $user_id = 0;
+                }
+
                 Cart::create([
                     'product_id' => $data['product_id'],
+                    'user_id' => $user_id,
                     'session_id' => $session_id,
                     'size' => $data['size'],
                     'quantity' => $data['quantity'],

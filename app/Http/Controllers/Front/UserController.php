@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use Auth;
 use Hash;
 use Session;
+use App\Cart;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -30,9 +31,16 @@ class UserController extends Controller
 
         User::create($input);
 
-        session::flash('success_message', 'User created successufly.');
+        $credentials = $request->only('email','password');
+        if(Auth::attempt($credentials)) {
+            if(!empty(session('session_id'))) {
+                Cart::where('session_id',session('session_id'))
+                    ->update(['user_id' => Auth::user()->id]);
+            }
+            session::flash('success_message', 'User created successufly.');
 
-        return redirect()->back();
+            return redirect('cart');
+        }
     }
 
     public function login(Request $request)
@@ -44,6 +52,10 @@ class UserController extends Controller
 
         $credentials = $request->only('email','password');
         if(Auth::attempt($credentials)) {
+            if(!(empty(session('session_id')))) {
+                $cart = Cart::where('session_id',session('session_id'))
+                        ->update(['user_id' => Auth::user()->id]);
+            }
             return redirect('cart')->with('success_message', 'User login successfully.');
         } else {
             session::flash('error_message','Invalid email or password please try again!.');
