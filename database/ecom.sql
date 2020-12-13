@@ -7,13 +7,38 @@
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `admins`
+--
+
+DROP TABLE IF EXISTS `admins`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `admins` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mobile` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email_verified_at` timestamp NULL DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` int NOT NULL,
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `admins_email_unique` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `admins`
@@ -26,6 +51,23 @@ INSERT INTO `admins` VALUES (16,'Admin','admin','09977899363','admin@gmail.com',
 UNLOCK TABLES;
 
 --
+-- Table structure for table `brands`
+--
+
+DROP TABLE IF EXISTS `brands`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `brands` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` tinyint NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `brands`
 --
 
@@ -34,6 +76,26 @@ LOCK TABLES `brands` WRITE;
 INSERT INTO `brands` VALUES (1,'Arrow',1,'2020-09-20 22:34:32','2020-09-20 22:34:32'),(2,'Gap',1,'2020-09-20 22:34:32','2020-09-20 22:34:32'),(3,'Lee',1,'2020-09-20 22:34:32','2020-09-20 22:34:32'),(4,'Monte Carlo',1,'2020-09-20 22:34:32','2020-11-26 04:07:21');
 /*!40000 ALTER TABLE `brands` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `bunners`
+--
+
+DROP TABLE IF EXISTS `bunners`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `bunners` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `link` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `alt` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` tinyint NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `bunners`
@@ -46,6 +108,26 @@ INSERT INTO `bunners` VALUES (1,'bunner1.png','https://www.youtube.com/','Black 
 UNLOCK TABLES;
 
 --
+-- Table structure for table `carts`
+--
+
+DROP TABLE IF EXISTS `carts`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `carts` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int unsigned NOT NULL,
+  `session_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `product_id` int unsigned NOT NULL,
+  `quantity` int NOT NULL,
+  `size` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `carts`
 --
 
@@ -54,6 +136,32 @@ LOCK TABLES `carts` WRITE;
 INSERT INTO `carts` VALUES (1,7,'n4ZignWmext61LQw4RPA3c2LeLTm0Nu219boNGEI',1,1,'Medium','2020-12-09 05:13:22','2020-12-09 05:14:02'),(2,7,'n4ZignWmext61LQw4RPA3c2LeLTm0Nu219boNGEI',4,2,'Large','2020-12-09 05:13:34','2020-12-09 05:14:02'),(3,7,'1dNpFXXm99gcbZX8n4lsIWP8iwad3ctttf5mx2XH',5,1,'Medium','2020-12-09 05:14:32','2020-12-09 05:14:32');
 /*!40000 ALTER TABLE `carts` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `categories`
+--
+
+DROP TABLE IF EXISTS `categories`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `categories` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `parent_id` int NOT NULL,
+  `section_id` int NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `discount` double(8,2) DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `url` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `meta_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `meta_description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `meta_keywords` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` tinyint NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `categories`
@@ -66,6 +174,24 @@ INSERT INTO `categories` VALUES (1,0,1,'T-Shirts','',NULL,NULL,'t-shirts',NULL,N
 UNLOCK TABLES;
 
 --
+-- Table structure for table `failed_jobs`
+--
+
+DROP TABLE IF EXISTS `failed_jobs`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `failed_jobs` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `failed_jobs`
 --
 
@@ -73,6 +199,21 @@ LOCK TABLES `failed_jobs` WRITE;
 /*!40000 ALTER TABLE `failed_jobs` DISABLE KEYS */;
 /*!40000 ALTER TABLE `failed_jobs` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `migrations`
+--
+
+DROP TABLE IF EXISTS `migrations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `migrations` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `migrations`
@@ -85,6 +226,23 @@ INSERT INTO `migrations` VALUES (1,'2014_10_12_000000_create_users_table',1),(2,
 UNLOCK TABLES;
 
 --
+-- Table structure for table `model_has_permissions`
+--
+
+DROP TABLE IF EXISTS `model_has_permissions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `model_has_permissions` (
+  `permission_id` bigint unsigned NOT NULL,
+  `model_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `model_id` bigint unsigned NOT NULL,
+  PRIMARY KEY (`permission_id`,`model_id`,`model_type`),
+  KEY `model_has_permissions_model_id_model_type_index` (`model_id`,`model_type`),
+  CONSTRAINT `model_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `model_has_permissions`
 --
 
@@ -92,6 +250,23 @@ LOCK TABLES `model_has_permissions` WRITE;
 /*!40000 ALTER TABLE `model_has_permissions` DISABLE KEYS */;
 /*!40000 ALTER TABLE `model_has_permissions` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `model_has_roles`
+--
+
+DROP TABLE IF EXISTS `model_has_roles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `model_has_roles` (
+  `role_id` bigint unsigned NOT NULL,
+  `model_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `model_id` bigint unsigned NOT NULL,
+  PRIMARY KEY (`role_id`,`model_id`,`model_type`),
+  KEY `model_has_roles_model_id_model_type_index` (`model_id`,`model_type`),
+  CONSTRAINT `model_has_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `model_has_roles`
@@ -104,6 +279,21 @@ INSERT INTO `model_has_roles` VALUES (4,'App\\Admin',16),(5,'App\\Admin',17);
 UNLOCK TABLES;
 
 --
+-- Table structure for table `password_resets`
+--
+
+DROP TABLE IF EXISTS `password_resets`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `password_resets` (
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  KEY `password_resets_email_index` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `password_resets`
 --
 
@@ -111,6 +301,23 @@ LOCK TABLES `password_resets` WRITE;
 /*!40000 ALTER TABLE `password_resets` DISABLE KEYS */;
 /*!40000 ALTER TABLE `password_resets` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `permissions`
+--
+
+DROP TABLE IF EXISTS `permissions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `permissions` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `guard_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `permissions`
@@ -123,6 +330,27 @@ INSERT INTO `permissions` VALUES (13,'admin-list','web','2020-12-01 22:48:34','2
 UNLOCK TABLES;
 
 --
+-- Table structure for table `product_attributes`
+--
+
+DROP TABLE IF EXISTS `product_attributes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `product_attributes` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `product_id` bigint unsigned NOT NULL,
+  `size` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `price` double(8,2) NOT NULL,
+  `stock` int NOT NULL,
+  `sku` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` tinyint NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `product_attributes`
 --
 
@@ -131,6 +359,24 @@ LOCK TABLES `product_attributes` WRITE;
 INSERT INTO `product_attributes` VALUES (1,1,'Small',2000.00,5,'S01',1,'2020-10-25 05:53:30','2020-11-26 04:08:11'),(2,1,'Medium',3000.00,10,'M01',1,'2020-10-25 05:54:15','2020-11-04 03:14:50'),(3,1,'Large',5000.00,20,'L01',1,'2020-10-25 05:54:16','2020-11-04 03:14:50'),(4,4,'Small',4000.00,5,'SM001',1,'2020-11-03 01:39:33','2020-11-04 03:14:19'),(5,4,'Medium',5000.00,6,'ME001',0,'2020-11-03 01:39:33','2020-11-19 10:46:09'),(6,4,'Large',7000.00,10,'LA001',1,'2020-11-03 01:39:33','2020-11-04 03:14:20'),(7,6,'Small',1000.00,5,'MCT001 -S',1,'2020-11-04 03:33:57','2020-11-04 03:34:24'),(8,7,'Small',1000.00,3,'BLT010-S',1,'2020-11-08 14:17:26','2020-11-08 14:17:26'),(9,7,'Medium',2000.00,2,'BLT010-M',1,'2020-11-08 14:17:26','2020-11-08 14:17:26'),(10,7,'Large',3000.00,5,'BLT010-L',1,'2020-11-08 14:17:27','2020-11-08 14:17:27'),(11,5,'Small',2000.00,3,'PU10001-S',1,'2020-11-11 11:01:06','2020-11-11 11:01:06'),(12,5,'Medium',3000.00,2,'PU10001-M',1,'2020-11-11 11:01:06','2020-11-11 11:01:06'),(13,5,'Large',4000.00,4,'PU10001-L',1,'2020-11-11 11:01:06','2020-11-11 11:01:06'),(14,6,'Medium',2000.00,4,'MCT001-M',1,'2020-11-12 02:13:07','2020-11-12 02:13:07');
 /*!40000 ALTER TABLE `product_attributes` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `product_images`
+--
+
+DROP TABLE IF EXISTS `product_images`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `product_images` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `product_id` bigint unsigned NOT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` tinyint NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `product_images`
@@ -143,6 +389,44 @@ INSERT INTO `product_images` VALUES (2,1,'8344582020-10-26-09-04-38.jpeg',1,'202
 UNLOCK TABLES;
 
 --
+-- Table structure for table `products`
+--
+
+DROP TABLE IF EXISTS `products`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `products` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `category_id` int NOT NULL,
+  `section_id` int NOT NULL,
+  `brand_id` bigint unsigned NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `color` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `price` double(8,2) NOT NULL,
+  `discount` double(8,2) NOT NULL,
+  `weight` double(8,2) NOT NULL,
+  `video` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `wash_care` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `fabric` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pattern` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sleeve` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `fit` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `occasion` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `meta_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `meta_description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `meta_keywords` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `is_featured` enum('No','Yes') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` tinyint NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `products`
 --
 
@@ -151,6 +435,23 @@ LOCK TABLES `products` WRITE;
 INSERT INTO `products` VALUES (1,4,1,1,'Blue Casual T-Shirt','BT001','Blue',2000.00,0.00,200.00,'','2020-09-22-07-14-25.jpeg','This is the product description','asdf','Cotton','Checked','Full Sleeve','Slim','Casual',NULL,NULL,NULL,'Yes',1,'2020-09-20 22:34:21','2020-11-13 01:01:47'),(2,4,1,2,'Red Casual T-Shirt','R001','Red',2000.00,10.00,200.00,'','',NULL,'asdf','Polyester','Plain','Half Sleeve','Regular','Formal',NULL,NULL,NULL,'Yes',1,'2020-09-20 22:34:21','2020-11-13 01:01:55'),(3,4,1,1,'Red Casual T-Shirts','RD101','Red',300.00,10.00,10.00,'','',NULL,'df','Cotton','Plain','Full Sleeve','Regular','Casual',NULL,NULL,NULL,'Yes',1,'2020-09-21 03:47:19','2020-09-22 00:23:28'),(4,4,1,1,'Black Casual T-Shirts','BL1001','Black',200.00,10.00,2.00,'','2020-09-22-07-14-55.jpeg',NULL,'afsd','Cotton','Plain','Full Sleeve','Regular','Casual',NULL,NULL,NULL,'Yes',1,'2020-09-21 03:48:50','2020-11-08 14:11:59'),(5,4,1,1,'Purple Casual T-Shirts','PU10001','Purple',2000.00,3.00,20.00,'','2020-09-22-07-13-54.jpeg',NULL,'sdfa','Cotton','Plain','Full Sleeve','Slim','Casual',NULL,NULL,NULL,'Yes',1,'2020-09-21 03:52:43','2020-11-11 11:01:53'),(6,4,1,1,'MC Casual T-Shirts','MCT001','Blue',1000.00,0.00,2.00,'','2020-09-22-07-11-43.jpeg',NULL,'adf','Polyester','Plain','Full Sleeve','Regular','Casual',NULL,NULL,NULL,'Yes',1,'2020-09-22 00:41:43','2020-11-12 02:11:45'),(7,7,1,1,'Blue Formal-T-Shirts','BLT010','Blue',1000.00,20.00,10.00,'','2020-09-30-06-31-01.jpeg',NULL,'sdfa','Cotton','Printed','Full Sleeve','Regular','Casual',NULL,NULL,NULL,'Yes',1,'2020-09-30 00:01:01','2020-11-08 14:18:36'),(8,7,1,1,'Red Formal-T-Shirts','RDF001','Red',3000.00,2.00,2.00,'','',NULL,'sdaf','Cotton','Plain','Full Sleeve','Regular','Casual',NULL,NULL,NULL,'Yes',1,'2020-10-07 07:19:59','2020-10-07 07:19:59');
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `role_has_permissions`
+--
+
+DROP TABLE IF EXISTS `role_has_permissions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `role_has_permissions` (
+  `permission_id` bigint unsigned NOT NULL,
+  `role_id` bigint unsigned NOT NULL,
+  PRIMARY KEY (`permission_id`,`role_id`),
+  KEY `role_has_permissions_role_id_foreign` (`role_id`),
+  CONSTRAINT `role_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `role_has_permissions_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `role_has_permissions`
@@ -163,6 +464,23 @@ INSERT INTO `role_has_permissions` VALUES (13,4),(14,4),(15,4),(16,4),(17,4),(18
 UNLOCK TABLES;
 
 --
+-- Table structure for table `roles`
+--
+
+DROP TABLE IF EXISTS `roles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `roles` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `guard_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `roles`
 --
 
@@ -173,6 +491,23 @@ INSERT INTO `roles` VALUES (4,'admin','web','2020-12-01 22:53:40','2020-12-01 22
 UNLOCK TABLES;
 
 --
+-- Table structure for table `sections`
+--
+
+DROP TABLE IF EXISTS `sections`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `sections` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` tinyint NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `sections`
 --
 
@@ -181,6 +516,34 @@ LOCK TABLES `sections` WRITE;
 INSERT INTO `sections` VALUES (1,'Men',1,'2020-09-20 22:34:06','2020-09-21 04:33:27'),(2,'Women',1,'2020-09-20 22:34:06','2020-09-20 22:34:06'),(3,'Kids',1,'2020-09-20 22:34:06','2020-11-26 04:07:07');
 /*!40000 ALTER TABLE `sections` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `users` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `city` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `state` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `country` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pincode` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mobile` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email_verified_at` timestamp NULL DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` tinyint NOT NULL,
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `users_email_unique` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `users`
@@ -201,4 +564,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-12-13 12:31:38
+-- Dump completed on 2020-12-13 17:23:31
