@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Front;
 
+use Mail;
 use Auth;
 use Hash;
 use Session;
 use App\Cart;
 use App\User;
+use App\Mail\RegisterMail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -37,6 +39,18 @@ class UserController extends Controller
                 Cart::where('session_id',session('session_id'))
                     ->update(['user_id' => Auth::user()->id]);
             }
+
+            $user = Auth::user();
+            $data = [
+                'title' => 'Dear '.$user->name.',',
+                'name' => $user->name,
+                'email' => $user->email,
+                'body' => 'Your account registered successfully.',
+                'url' => $input['url'],
+            ];
+
+            Mail::to($user->email)->send(new RegisterMail($data));
+
             session::flash('success_message', 'User created successufly.');
 
             return redirect('cart');

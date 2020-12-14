@@ -16,6 +16,7 @@
             Please fill below information to create an account.<br/><br/>
             <form id="registerForm" action="{{ url('register')}}" method="post">
                 @csrf
+                <input type="hidden" name="url" value="{{url()->current()}}">
                 <div class="control-group">
                     <label class="control-label" for="name">Name</label>
                     <div class="controls">
