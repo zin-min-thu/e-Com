@@ -13,9 +13,9 @@
     <p>Your Email: {{$data['email']}}</p>
     <p>Password: *****(use password as you assign)</p>
     <p>
-        <a href="{{url('confirm/'.$data['code'])}}">Click Here To Activate Your Account</a>
+        <a href="{{url($data['url'])}}">Click Here To Login</a>
     </p>
 
-    <p>Thank you</p>
+    <p>Thank you.</p>
 </body>
 </html>

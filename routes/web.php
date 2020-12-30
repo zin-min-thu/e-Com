@@ -96,6 +96,9 @@ Route::namespace('Front')->group(function() {
     Route::get('logout', 'UserController@logout');
     Route::match(['get','post'],'/check-email', 'UserController@checkEmail');
 
+    //Confirm acitvate link via mail route
+    Route::match(['get', 'post'],'/confirm/{email}', 'UserController@confirmEmail');
+
 });
 //Front Password reset routes
 Route::namespace('Auth')->group(function() {
