@@ -34,7 +34,7 @@
 				</div>
 				<div class="control-group">
 					<div class="controls">
-						<a href="{{route('password.request')}}" style="">Forgot password ?</a>
+						<a href="{{url('forgot-password')}}" style="">Forgot password ?</a>
 					</div>
 				</div>
 			</td>

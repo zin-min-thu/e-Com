@@ -8,8 +8,10 @@ use Hash;
 use Session;
 use App\Cart;
 use App\User;
+use Illuminate\Support\Str;
 use App\Mail\RegisterMail;
 use App\Mail\RegisterConfirmMail;
+use App\Mail\ForgotPasswordMail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -116,6 +118,33 @@ class UserController extends Controller
         } else {
             abort(404);
         }
+    }
+
+    public function forgotPassword(Request $request)
+    {
+        if($request->isMethod('post')) {
+            $user = User::whereEmail($request->email)->first();
+            if(is_null($user)) {
+                session::flash('error_message', 'Your email does not exitst');
+                return redirect()->back();
+            }
+            $random_password = Str::random(8);
+            $user->update(['password' => bcrypt($random_password)]);
+
+            $data = [
+                'title' => 'Dear '.$user->name.',',
+                'name' => $user->name,
+                'password' => $random_password,
+                'body' => "You new password is as below",
+                'url' => url('login-register'),
+            ];
+
+            Mail::to($user->email)->send(new ForgotPasswordMail($data));
+            session::flash('success_message', 'We have sent password to your email');
+            return redirect('login-register');
+        }
+
+        return view('front.users.forgot_password');
     }
 
     public function logout()

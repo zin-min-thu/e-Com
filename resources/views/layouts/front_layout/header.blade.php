@@ -6,7 +6,7 @@
 <div id="header">
 	<div class="container">
 		<div id="welcomeLine" class="row">
-			<div class="span6">Welcome!<strong> User</strong></div>
+			<div class="span6">Welcome!<strong> {{ auth()->user() ? auth()->user()->name : ""}}</strong></div>
 			<div class="span6">
 				<div class="pull-right">
 					<a href="{{url('cart')}}"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ <span class="get-cart-count"></span> ] Items in your cart </span> </a>
