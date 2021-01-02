@@ -95,6 +95,7 @@ Route::namespace('Front')->group(function() {
     Route::post('login', 'UserController@login');
     Route::get('logout', 'UserController@logout');
     Route::match(['get','post'],'/check-email', 'UserController@checkEmail');
+    Route::match(['get','post'],'user-account', 'UserController@userAccount');
 
     //Confirm acitvate link via mail route
     Route::match(['get', 'post'],'/confirm/{email}', 'UserController@confirmEmail');

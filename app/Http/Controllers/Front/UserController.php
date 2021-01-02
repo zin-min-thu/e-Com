@@ -8,6 +8,7 @@ use Hash;
 use Session;
 use App\Cart;
 use App\User;
+use App\Country;
 use Illuminate\Support\Str;
 use App\Mail\RegisterMail;
 use App\Mail\RegisterConfirmMail;
@@ -145,6 +146,27 @@ class UserController extends Controller
         }
 
         return view('front.users.forgot_password');
+    }
+
+    public function userAccount(Request $request)
+    {
+        $countries = Country::get();
+
+        $user = Auth::user();
+        if($request->isMethod('post')) {
+
+            $request->validate([
+                'name' => 'required|regex:/^[a-zA-Z]+$/u|max:255'
+            ]);
+
+            $input = $request->all();
+            $user->update($input);
+
+            session::flash('success_message', 'User account has been updated successfully.');
+            return redirect('user-account');
+        }
+
+        return view('front.users.account', compact('user','countries'));
     }
 
     public function logout()
