@@ -83,29 +83,30 @@
         <div class="span4">
             <div class="well">
             <h5>UPDATE YOUR PASSWORD ?</h5>
-            <form id="resetForm" action="{{ url('update-password') }}" method="POST">
+            <form id="updatePassword" action="{{ url('update-password') }}" method="POST">
                 @csrf
                 <div class="control-group">
                     <label class="control-label" for="current-password">Current Password</label>
                     <div class="controls">
-                    <input class="span3"  type="text" name="current_password" id="current-password" placeholder="Current password">
+                        <span id="check-message"></span>
+                        <input class="span3"  type="text" name="current_password" id="current-password" placeholder="Current password">
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label" for="new-password">New Password</label>
                     <div class="controls">
-                    <input type="password" class="span3" name="new_password" id="new-password" placeholder="New Password">
+                        <input type="password" class="span3" name="new_password" id="new-password" placeholder="New Password">
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label" for="confirm-password">Confirm Password</label>
                     <div class="controls">
-                    <input type="password" class="span3" name="confirm_password" id="confirm-password" placeholder="Password">
+                        <input type="password" class="span3" name="confirm_password" id="confirm-password" placeholder="Password">
                     </div>
                 </div>
                 <div class="control-group">
                     <div class="controls">
-                    <button type="submit" class="btn btn-primary">Update</button> <a href="{{url('forgot-password')}}">Forget password?</a>
+                        <button type="submit" class="btn btn-primary">Update</button> <a href="{{url('forgot-password')}}">Forget password?</a>
                     </div>
                 </div>
             </form>

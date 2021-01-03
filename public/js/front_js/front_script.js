@@ -286,4 +286,43 @@ $(document).ready(function() {
         }
     });
 
+    //Check user password
+    $('#current-password').keyup(function(){
+        var current_password = $(this).val();
+        $.ajax({
+            type: 'post',
+            url: '/check-user-password',
+            data: {current_password:current_password},
+            success:function(resp) {
+                if(resp == "true") {
+                    $('#check-message').html('<font color="green">Current Password is Correct.</font>')
+                } else if( resp == "false") {
+                    $('#check-message').html('<font color="red">Current Password is Incorrect</font>')
+                }
+            },error:function() {
+                alert("Error")
+            }
+        })
+    });
+
+    // validate user update password form on keyup and submit
+    $("#updatePassword").validate({
+        rules: {
+            current_password: {
+                required: true,
+            },
+            new_password: {
+                required: true,
+                minlength: 5,
+                maxlength: 20,
+            },
+            confirm_password: {
+                required: true,
+                minlength: 5,
+                maxlength: 20,
+                equalTo: "#new-password",
+            },
+        },
+    });
+
 })

@@ -96,11 +96,12 @@ Route::namespace('Front')->group(function() {
     Route::get('logout', 'UserController@logout');
     Route::match(['get','post'],'/check-email', 'UserController@checkEmail');
     Route::match(['get','post'],'user-account', 'UserController@userAccount');
-
     //Confirm acitvate link via mail route
     Route::match(['get', 'post'],'/confirm/{email}', 'UserController@confirmEmail');
-
     // User forgot password
     Route::match(['get','post'], '/forgot-password', 'UserController@forgotPassword');
+    // Check user password
+    Route::post('/check-user-password', 'UserController@checkPassword');
+    Route::post('update-password', 'UserController@updatePassword');
 
 });

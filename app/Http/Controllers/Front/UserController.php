@@ -73,7 +73,7 @@ class UserController extends Controller
             }
 
             session::flash('success_message', 'User login successfully.');
-            return redirect('cart');
+            return redirect('user-account');
         } else {
             session::flash('error_message','Invalid email or password please try again!.');
             return redirect()->back();
@@ -167,6 +167,41 @@ class UserController extends Controller
         }
 
         return view('front.users.account', compact('user','countries'));
+    }
+
+    public function checkPassword(Request $request)
+    {
+        if($request->isMethod('post')) {
+            $input = $request->all();
+            $user = Auth::user();
+            if(Hash::check($input['current_password'],$user->password)) {
+                return "true";
+            } else {
+                return "false";
+            }
+        }
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => 'required|same:confirm_password',
+        ]);
+
+        $input = $request->all();
+
+        $user = Auth::user();
+        if(Hash::check($input['current_password'],$user->password)) {
+            $input['new_password'] = bcrypt($input['new_password']);
+            $user->update(['password' => $input['new_password']]);
+            session::flash('success_message', 'Your password has been updated successfully.');
+            return redirect()->back();
+        } else {
+            session::flash('error_message', 'Your password is incorrect.');
+            return redirect()->back();
+        }
+
     }
 
     public function logout()
