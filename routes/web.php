@@ -2,8 +2,6 @@
 use Carbon\Traits\Rounding;
 use App\Category;
 
-// Auth::routes();
-
 // Backend routes
 Route::prefix('admin')->namespace('Admin')->group(function() {
     Route::match(['get','post'],'/', 'AdminLoginController@login');
